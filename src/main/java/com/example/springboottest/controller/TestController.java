@@ -1,6 +1,5 @@
 package com.example.springboottest.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,7 +22,7 @@ public class TestController {
     public TestService testService;
 
     @RequestMapping("/createTime")
-    public String[] createTime(){
+    public List<Map<String, Object>> createTime(){
            return testService.createTime();
     }
 

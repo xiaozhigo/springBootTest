@@ -12,31 +12,53 @@ import java.util.*;
 @Service
 public class TestService {
     /**
-     * 获取当月和前两个月的年月
+     * 获取当月和前两个月的年月的表名
      * @return
      */
-    public String[] createTime() {
-        String[] tableNames = new String[3];
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("YYYYMM");
-        String nowTime = format.format(date);
-        String now = new StringBuilder("invoke_log_statistic_").append(nowTime).toString();
-        tableNames[0]=now;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.MONTH,-1);
-        Date time = calendar.getTime();
-        String monthAgoTime = format.format(time);
-        String monthAgo = new StringBuilder("invoke_log_statistic_").append(monthAgoTime).toString();
-        tableNames[1]=monthAgo;
-        calendar.setTime(date);
-        calendar.set(Calendar.MONTH,-2);
-        Date time1 = calendar.getTime();
-        String twoMonthAgoTime = format.format(time1);
-        String twoMonthAgo = new StringBuilder("invoke_log_statistic_").append(twoMonthAgoTime).toString();
-        tableNames[2]=twoMonthAgo;
-        System.out.println(now+","+monthAgo+","+twoMonthAgo);
-        return tableNames;
+    public List<Map<String,Object>> createTime() {
+        List<Map<String,Object>> list = new ArrayList<>();
+        for(int i = 0;i < 3;i++){
+            Map<String, Object> map = new HashMap<>();
+            StringBuilder builder = new StringBuilder("invoke_log_statistic_");
+            SimpleDateFormat YMformat = new SimpleDateFormat("yyyyMM");
+            SimpleDateFormat DDformat = new SimpleDateFormat("dd");
+            SimpleDateFormat YMDformat = new SimpleDateFormat("yyyyMMdd HHmmss");
+            Calendar endCalendar = Calendar.getInstance();
+            Date date = new Date();
+            endCalendar.setTime(date);
+            endCalendar.set(Calendar.MINUTE, 0);
+            endCalendar.set(Calendar.SECOND, 0);
+            endCalendar.set(Calendar.MILLISECOND, 0);
+            endCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTime(date);
+            startCalendar.set(Calendar.MINUTE, 0);
+            startCalendar.set(Calendar.SECOND, 0);
+            startCalendar.set(Calendar.MILLISECOND, 0);
+            startCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            //如果是每月1号
+            if("01".equals(DDformat.format(date))){
+                endCalendar.set(Calendar.MONTH,-i);
+                //endCalendar.set(Calendar.DAY_OF_MONTH,-i);
+                startCalendar.add(Calendar.MONTH, -(i+1));
+                startCalendar.set(Calendar.DAY_OF_MONTH, 1);
+            }else{
+                endCalendar.set(Calendar.MONTH,-i);
+                startCalendar.add(Calendar.MONTH, -i);
+                startCalendar.set(Calendar.DAY_OF_MONTH, 1);
+            }
+            Date startDate = startCalendar.getTime();
+            Date endDate = endCalendar.getTime();
+            String YMtime = YMformat.format(startDate);
+            String startTime = YMDformat.format(startDate);
+            String endTime = YMDformat.format(endDate);
+            String tableName = builder.append(YMtime).toString();
+            map.put("tableName",tableName);
+            map.put("startTime",startTime);
+            map.put("endTime",endTime);
+            list.add(map);
+        }
+        return list;
     }
 
     public Map<String,Object> microServiceCallVolume(String microServiceName) {
@@ -45,13 +67,17 @@ public class TestService {
                if(StringUtils.isEmpty(microServiceName)){
                    throw new Exception("必要参数microServiceName为空!");
                }
-               String[] timeNames = createTime();
+               List<Map<String, Object>> timeList = createTime();
                List<Map<String,Object>> list = new ArrayList<>();
-               for(int i = 0;i < timeNames.length;i++){
-                   String tableName = timeNames[i];
+               for(int i = 0;i < timeList.size();i++){
+                   String tableName = (String) timeList.get(i).get("tableName");
+                   String startTime = (String) timeList.get(i).get("startTime");
+                   String endTime = (String) timeList.get(i).get("endTime");
                    Map<String, Object> map = new HashMap<>();
                    map.put("serviceTimes",3500+i*500);
                    map.put("tableName",tableName);
+                   map.put("startTime",startTime);
+                   map.put("endTime",endTime);
                    map.put("microServiceName",microServiceName);
                    list.add(map);
                }
