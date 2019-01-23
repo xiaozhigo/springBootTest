@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboottest.dao.CouponsDao">
+    <select id="qryGoords" parameterType="map" resultType="map">
+        select * from (select rownum rn,a.* from(select c.comm_id, c.comm_name, c.description, c.market_price
+                from td_cc_coupon                 cc,
+                td_cc_cogroup_coupon_mapping cm,
+                td_cc_commodity_group        cg,
+                td_cc_comm_group_member      m,
+                td_co_commodity              c
+                where cc.coupon_id = cm. coupon_id
+                and cm.group_id = cg.group_id
+                and cg.group_id = m.group_id
+                and m.comm_id = c.comm_id
+                and cc.coupon_status = '1'
+                and cm.valid_flag = '1'
+                and m.valid_flag = '1'
+                and c.state = '01'
+                and cc.coupon_id = #{couponId,jdbcType=VARCHAR}) a) tn where tn.rn > #{currPage,jdbcType=VARCHAR} and tn.rn <![CDATA[<]]>= #{pageSize,jdbcType=VARCHAR}
+    </select>
+
+    <select id="qryCouponInfo" parameterType="string" resultType="map">
+        select c.amount,
+           c.cost,
+           c.coupon_desc,
+           c.coupon_id,
+           c.coupon_name,
+           r.coupon_subtype,
+           c.coupon_status,
+           r.coupon_type,
+           c.start_time,
+           c.end_time
+      from td_cc_coupon c, td_cc_coupon_rule r
+     where c.coupon_id = r.coupon_id
+       and c.coupon_status = '1'
+       and c.coupon_id = #{couponId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="isOkByCouponId" parameterType="string" resultType="map">
+           select c.coupon_id,c.coupon_name,r.coupon_type,r.coupon_subtype
+              from td_cc_coupon c, td_cc_coupon_rule r
+             where c.coupon_id = r.coupon_id
+               and r.valid_flag = '1'
+               and sysdate between c.start_time and c.end_time
+               and c.coupon_id = #{couponId,jdbcType=VARCHAR}
+    </select>
+</mapper>

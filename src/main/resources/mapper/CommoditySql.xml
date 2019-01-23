@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboottest.dao.CommodityDao">
+    <select id="productAnalysis" parameterType="map" resultType="map">
+         select c.comm_code,c.description,c.comm_name,c.comm_type
+              from td_co_product p, td_co_comm_prod cp, td_co_commodity c
+             where p.product_id = cp.product_id
+               and cp.comm_id = c.comm_id
+               and (c.state != '03' or c.state != '04')
+               and p.product_type != 13
+               and p.ori_product_id = #{productCode,jdbcType=VARCHAR}
+               <if test="dataSource != null and dataSource != ''">
+                   and p.product_source = #{dataSource,jdbcType=VARCHAR}
+               </if>
+               and p.product_type = #{productType,jdbcType=VARCHAR}
+    </select>
+</mapper>
