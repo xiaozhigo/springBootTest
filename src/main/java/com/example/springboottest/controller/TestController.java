@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class TestController {
 
     @RequestMapping("/createTime")
     public List<Map<String, Object>> createTime(){
-           return testService.createTime();
+           return testService.getTableAndTime(new Date());
     }
 
     @RequestMapping("/microServiceCallVolume")
@@ -31,7 +32,7 @@ public class TestController {
            Map<String, Object> response = new HashMap<>();
            try{
                JSONObject head = JSONObject.parseObject(requestBody);
-               String microServiceName = head.getJSONObject("HEAD").getJSONObject("svcContent").getJSONObject("request").getString("microServiceName");
+               String microServiceName = head.getString("microServiceName");
                response = testService.microServiceCallVolume(microServiceName);
            }catch (Exception e){
                e.printStackTrace();
@@ -39,5 +40,10 @@ public class TestController {
                response.put("resCode","9999");
            }
            return JSONObject.toJSONString(response);
+    }
+
+    @RequestMapping("/queryAllUser")
+    public String queryAllUser(){
+       return testService.queryAllUser();
     }
 }
