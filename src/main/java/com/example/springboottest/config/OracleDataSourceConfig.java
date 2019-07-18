@@ -50,6 +50,7 @@ public class OracleDataSourceConfig {
     }
 
     @Bean(name="oracleTransactionManager")
+    @Primary
     public DataSourceTransactionManager oracleTransactionManager(){
         return new DataSourceTransactionManager(erpDataSource());
     }
