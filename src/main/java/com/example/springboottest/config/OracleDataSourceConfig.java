@@ -24,9 +24,9 @@ import javax.sql.DataSource;
 public class OracleDataSourceConfig {
 
     static final String PACKAGE = "com.example.springboottest.dao";
-    static final String MAPPER_LOCATION = "classpath:mapper/oracle/*.xml";
+    private static final String MAPPER_LOCATION = "classpath:mapper/oracle/*.xml";
 
-    @Value("${spring.datasource.oracle.driverClassName}")
+    @Value("${spring.datasource.oracle.driver-class-name}")
     private String driverClassName;
 
     @Value("${spring.datasource.oracle.url}")

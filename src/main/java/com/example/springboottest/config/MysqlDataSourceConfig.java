@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -22,9 +23,9 @@ import javax.sql.DataSource;
 public class MysqlDataSourceConfig {
 
     static final String PACKAGE = "com.example.springboottest.mysql";
-    static final String MAPPER_LOCATION = "classpath:mapper/mysql/*.xml";
+    private static final String MAPPER_LOCATION = "classpath:mapper/mysql/*.xml";
 
-    @Value("${spring.datasource.mysql.driverClassName}")
+    @Value("${spring.datasource.mysql.driver-class-name}")
     private String driverClassName;
 
     @Value("${spring.datasource.mysql.url}")
