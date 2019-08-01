@@ -17,7 +17,7 @@ public class TimeTest {
     @Autowired
     private TimeService timeService;
 
-    @Scheduled(cron = "0 27 18 * * ?")
+    //@Scheduled(cron = "0 27 18 * * ?")
     //@Scheduled(cron = "0/1 * * * * ?")
     public void timeTest1(){
         try{
