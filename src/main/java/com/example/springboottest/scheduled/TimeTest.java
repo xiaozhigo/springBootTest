@@ -11,7 +11,7 @@ import java.util.Date;
  * @author wulei
  * @date 2019-01-24 18:12
  */
-@Component
+/*@Component*/
 public class TimeTest {
 
     @Autowired
