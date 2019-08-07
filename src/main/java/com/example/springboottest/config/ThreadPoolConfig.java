@@ -8,10 +8,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/*@Configuration
-@EnableAsync*/
+@Configuration
+@EnableAsync
 public class ThreadPoolConfig {
-    /*@Bean*/
+    @Bean
     public Executor getAsyncExecutor(){
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         /*<!--核心线程数 -->*/
