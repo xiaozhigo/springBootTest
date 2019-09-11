@@ -1,6 +1,7 @@
 package com.example.springboottest.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.springboottest.annotation.TestAnnotation;
 import com.example.springboottest.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class TestController {
     public TestService testService;
 
     @RequestMapping("/createTime")
+    @TestAnnotation("1")
     public List<Map<String, Object>> createTime(){
            return testService.getTableAndTime(new Date());
     }
