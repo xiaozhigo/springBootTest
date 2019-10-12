@@ -2,7 +2,10 @@ package com.example.springboottest.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.annotation.TestAnnotation;
+import com.example.springboottest.proxy.InvoiceProxy;
+import com.example.springboottest.service.ProxyService;
 import com.example.springboottest.service.TestService;
+import com.example.springboottest.service.impl.ProxyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,5 +50,16 @@ public class TestController {
     @RequestMapping("/queryAllUser")
     public String queryAllUser(){
        return testService.queryAllUser();
+    }
+
+    /**
+     * 动态代理测试
+     * @return
+     */
+    @RequestMapping("/proxyTest")
+    public String proxyTest(){
+        InvoiceProxy invoiceProxy = new InvoiceProxy();
+        ProxyService proxyService = (ProxyService) invoiceProxy.newProxyInstance(new ProxyServiceImpl());
+        return proxyService.queryAllUser();
     }
 }

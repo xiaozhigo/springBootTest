@@ -1,6 +1,5 @@
 package com.example.springboottest.test;
 
-import com.example.springboottest.annotation.TestAnnotation;
 import org.junit.Test;
 
 public class Test1 {
