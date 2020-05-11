@@ -1,13 +1,13 @@
 package com.example.springboottest.test;
 
 public class ThreadExample {
-    private int cnt = 0;
+    private String cnt = "0";
 
     public synchronized void add(){
-        cnt+=1;
+        cnt=Integer.parseInt(cnt)+1+"";
     }
 
-    public int get(){
+    public String get(){
         return cnt;
     }
 }
