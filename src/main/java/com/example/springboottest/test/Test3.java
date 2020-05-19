@@ -1,6 +1,10 @@
 package com.example.springboottest.test;
 
+import com.example.springboottest.service.TestProxyService;
 import com.example.springboottest.service.TestService;
+import com.example.springboottest.service.impl.TestProxyServiceImpl;
+import com.example.springboottest.service.impl.TestProxyServiceImpl1;
+import com.example.springboottest.service.impl.TestProxyServiceImpl2;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
@@ -230,5 +234,12 @@ public class Test3 {
     public void test18(){
         long l = SECONDS.toMillis(10);
         System.out.println(l);
+    }
+
+    @Test
+    public void test19(){
+        TestProxyService target = new TestProxyServiceImpl2(new TestProxyServiceImpl());
+        TestProxyService proxy = new TestProxyServiceImpl1(target);
+        proxy.query();
     }
 }
