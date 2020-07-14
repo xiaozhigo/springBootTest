@@ -11,3 +11,6 @@ http:
   socketTimeout:  200000
 #提交请求前测试连接是否可用
   staleConnectionCheckEnabled:  true
+
+person:
+  my_name: hehe
