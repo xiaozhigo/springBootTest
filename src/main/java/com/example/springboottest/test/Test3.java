@@ -1,25 +1,18 @@
 package com.example.springboottest.test;
 
-import com.example.springboottest.service.TestProxyService;
 import com.example.springboottest.service.TestService;
-import com.example.springboottest.service.impl.TestProxyServiceImpl;
-import com.example.springboottest.service.impl.TestProxyServiceImpl1;
-import com.example.springboottest.service.impl.TestProxyServiceImpl2;
 import org.junit.Test;
-import org.springframework.util.StringUtils;
 
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.concurrent.*;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import java.util.Date;
 
 public class Test3 {
 
     @Test
-    public void test1() {
+    public void test1(){
         DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(now);
@@ -27,13 +20,13 @@ public class Test3 {
     }
 
     @Test
-    public void test2() {
+    public void test2(){
         try {
             //Class<?> aClass = Class.forName("com.example.springboottest.service.TestService");
             Class<TestService> aClass = TestService.class;
             Date date = new Date();
-            Method getTableAndTime = aClass.getMethod("getTableAndTime", date.getClass());
-            Object invoke = getTableAndTime.invoke(aClass.newInstance(), date);
+            Method getTableAndTime = aClass.getMethod("getTableAndTime",date.getClass());
+            Object invoke = getTableAndTime.invoke(aClass.newInstance(),date);
             System.out.println(invoke);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,205 +34,14 @@ public class Test3 {
     }
 
     @Test
-    public void test3() {
+    public void test3(){
         Test1 test1 = SingleDemo.getTest1();
         test1.test3();
     }
 
     @Test
-    public void test4() {
+    public void test4(){
         Test1 test1 = SingleDemo2.getTest1();
         test1.test1();
-    }
-
-    @Test
-    public void test5() {
-        int i = 1024 << 10;
-        int j = 1024 >> 10;
-        double k = Math.pow(2, 10);
-        System.out.println(i + ":" + j + ":" + k);
-    }
-
-    @Test
-    public void test6() {
-        StringBuilder builder = new StringBuilder();
-        String str;
-        if (StringUtils.isEmpty(builder)) {
-            str = builder.append(1).toString();
-        } else {
-            str = builder.toString();
-        }
-        System.out.println(str);
-    }
-
-    @Test
-    public void test7() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("1", "1");
-        map.put("1", "2");
-        map.remove("1");
-        System.out.println(map);
-    }
-
-    @Test
-    public void test8() throws ExecutionException, InterruptedException {
-        MyCallable myCallable = new MyCallable();
-        FutureTask<String> task = new FutureTask<>(myCallable);
-        Thread thread = new Thread(task);
-        thread.start();
-        System.out.println(task.get());
-    }
-
-    @Test
-    public void test9() {
-        ExecutorService pool = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10; i++) {
-            Future<String> submit = pool.submit(new MyCallable());
-            try {
-                System.out.println(submit.get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-        pool.shutdown();
-    }
-
-    @Test
-    public void test10() {
-        ExecutorService service = Executors.newFixedThreadPool(10);
-        SynchronizedExample synchronizedExample1 = new SynchronizedExample();
-        SynchronizedExample synchronizedExample2 = new SynchronizedExample();
-        service.execute(() -> synchronizedExample1.test());
-        service.execute(() -> synchronizedExample2.test());
-        service.shutdown();
-    }
-
-    @Test
-    public void test11() throws InterruptedException {
-        int count = 10;
-        ExecutorService service = Executors.newFixedThreadPool(count);
-        CountDownLatch countDownLatch = new CountDownLatch(count);
-        service.execute(() -> {
-            for (int i = 0; i < count; i++) {
-                System.out.println("==================" + countDownLatch.getCount() + "========================");
-                countDownLatch.countDown();
-            }
-        });
-        countDownLatch.await();
-        System.out.println("==================shutDown===================");
-        service.shutdown();
-    }
-
-    @Test
-    public void test12() throws InterruptedException {
-        int count = 1000;
-        ThreadExample threadExample = new ThreadExample();
-        ExecutorService service = Executors.newFixedThreadPool(count);
-        CountDownLatch countDownLatch = new CountDownLatch(count);
-        for (int i = 0; i < count; i++) {
-            service.execute(() -> {
-                threadExample.add();
-                countDownLatch.countDown();
-            });
-        }
-        countDownLatch.await();
-        service.shutdown();
-        System.out.println("e:" + threadExample.get() + "=======" + "latch:" + countDownLatch.getCount());
-    }
-
-    @Test
-    public void test13() {
-        ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
-        ExecutorService service = Executors.newFixedThreadPool(10);
-        service.execute(() -> {
-            threadLocal.set(1);
-            System.out.println(threadLocal.get());
-            threadLocal.remove();
-        });
-        service.execute(() -> {
-            threadLocal.set(2);
-            System.out.println(threadLocal.get());
-            threadLocal.remove();
-            System.out.println(threadLocal.get());
-        });
-        service.shutdown();
-    }
-
-    @Test
-    public void test14() {
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("1");
-        list.add("1");
-        list.add("1");
-        list.add("1");
-        list.add("1");
-        list.stream().parallel().forEach(str -> {
-            System.out.println(str);
-            String s = list.get(1);
-            int j = Integer.parseInt(s) / 0;
-        });
-    }
-
-    @Test
-    public void test15() {
-        int[] i = {0, 5, 0, 1, 66};
-        int num = 0;
-        for(int n : i){
-            if(n != 0){
-                i[num++] = n;
-            }
-        }
-        while (num < i.length) {
-            i[num++] = 0;
-        }
-        for (int j : i) {
-            System.out.println(j);
-        }
-    }
-
-    @Test
-    public void test16(){
-        String[] str = {"5","1","ss","77","11","000"};
-        for(int i = 0;i < str.length/2;i++){
-            String k = str[i];
-            str[i] = str[str.length - 1 - i];
-            str[str.length - 1 - i]= k;
-        }
-        for(String st : str){
-            System.out.println(st);
-        }
-    }
-
-    @Test
-    public void test17(){
-        int[] nums = {1,6,4,77,10};
-        for(int i = 0;i < nums.length - 1;i++){
-            for(int j = nums.length - 1;j >i;j--){
-                if(nums[j - 1] > nums[j]){
-                   int tmp = nums[j];
-                   nums[j] = nums[j - 1];
-                   nums[j - 1] = tmp;
-                }
-            }
-        }
-        for(int num : nums){
-            System.out.println(num);
-        }
-    }
-
-    @Test
-    public void test18(){
-        long l = SECONDS.toMillis(10);
-        System.out.println(l);
-    }
-
-    @Test
-    public void test19(){
-        TestProxyService target = new TestProxyServiceImpl2(new TestProxyServiceImpl());
-        TestProxyService proxy = new TestProxyServiceImpl1(target);
-        proxy.query();
     }
 }
