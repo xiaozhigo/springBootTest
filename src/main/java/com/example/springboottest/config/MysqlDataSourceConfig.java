@@ -25,16 +25,16 @@ public class MysqlDataSourceConfig {
     static final String PACKAGE = "com.example.springboottest.mysql";
     private static final String MAPPER_LOCATION = "classpath:mapper/mysql/*.xml";
 
-    @Value("${spring.datasource.mysql.driver-class-name}")
+    @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
 
-    @Value("${spring.datasource.mysql.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
-    @Value("${spring.datasource.mysql.username}")
+    @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${spring.datasource.mysql.password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
     @Bean(name = "mysqlDataSource")
