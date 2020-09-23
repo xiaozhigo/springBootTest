@@ -98,6 +98,7 @@ public class TestService {
 
     public String queryAllUser() {
          List<Map<String,Object>> list = dao.queryAllUser();
+        System.out.println("二狗");
          return list.toString();
     }
 }

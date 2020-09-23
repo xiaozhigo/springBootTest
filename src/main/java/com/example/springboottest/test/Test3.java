@@ -9,9 +9,11 @@ import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class Test3 {
 
@@ -63,5 +65,22 @@ public class Test3 {
             id = s;
         }
         System.out.println(id);
+    }
+
+    @Test
+    public void test6(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        List<Integer> collect = list.stream().filter(str -> str==1).collect(Collectors.toList());
+        System.out.println(collect);
+    }
+
+    @Test
+    public void test7(){
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> collect = list.parallelStream().map(i -> i * 2).collect(Collectors.toList());
+        System.out.println(collect);
     }
 }

@@ -10,7 +10,11 @@ public enum ResponseStatus {
     未登录(1000,"no_login"),
     成功(1001,"success"),
     失败(1002,"false"),
-    CODE成功(0,"success");
+    CODE成功(0,"success"),
+    索引不存在(0,"索引不存在"),
+    调用ElasticSearch失败(0,"调用ElasticSearch失败"),
+    索引已经存在(0,"索引已经存在")
+    ;
 
     private  String msg;
     private  Integer stauts;
