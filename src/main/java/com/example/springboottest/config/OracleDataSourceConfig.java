@@ -1,6 +1,9 @@
 package com.example.springboottest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+import oracle.jdbc.pool.OracleDataSource;
+import oracle.jdbc.xa.client.OracleXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,6 +16,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 
 /**
@@ -38,8 +42,10 @@ public class OracleDataSourceConfig {
     @Value("${spring.datasource.oracle.password}")
     private String password;
 
-    @Bean(name = "oracleDataSource")
-    @Primary
+    @Value("${spring.datasource.oracle.uniqueResourceName}")
+    private String uniqueResourceName;
+
+    /*@Bean(name = "oracleDataSource")
     public DataSource erpDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClassName);
@@ -47,16 +53,28 @@ public class OracleDataSourceConfig {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
+    }*/
+    @Bean(name = "oracleDataSource")
+    public DataSource erpDataSource() throws SQLException {
+        OracleXADataSource source = new OracleXADataSource();
+        source.setURL(url);
+        source.setPassword(password);
+        source.setUser(username);
+
+        //注册到全局事务
+        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+        xaDataSource.setXaDataSource(source);
+        xaDataSource.setUniqueResourceName(uniqueResourceName);
+        return xaDataSource;
     }
 
-    @Bean(name="oracleTransactionManager")
-    @Primary
+
+    /*@Bean(name="oracleTransactionManager")
     public DataSourceTransactionManager oracleTransactionManager(){
         return new DataSourceTransactionManager(erpDataSource());
     }
-
+*/
     @Bean(name="oracleSqlSessionFactory")
-    @Primary
     public SqlSessionFactory oracleSqlSessionFactory(@Qualifier("oracleDataSource") DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);

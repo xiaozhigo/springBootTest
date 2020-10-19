@@ -1,6 +1,8 @@
 package com.example.springboottest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,6 +15,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  * @author wulei
@@ -37,7 +40,11 @@ public class MysqlDataSourceConfig {
     @Value("${spring.datasource.password}")
     private String password;
 
-    @Bean(name = "mysqlDataSource")
+    @Value("${spring.datasource.uniqueResourceName}")
+    private String uniqueResourceName;
+
+    /*@Bean(name = "mysqlDataSource")
+    @Primary
     public DataSource erpDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClassName);
@@ -45,14 +52,31 @@ public class MysqlDataSourceConfig {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
+    }*/
+    @Bean(name = "mysqlDataSource")
+    @Primary
+    public DataSource erpDataSource() throws SQLException {
+        MysqlXADataSource dataSource = new MysqlXADataSource();
+        dataSource.setUrl(url);
+        dataSource.setPinGlobalTxToPhysicalConnection(true);
+        dataSource.setPassword(password);
+        dataSource.setUser(username);
+
+        //注册到全局事务
+        AtomikosDataSourceBean sourceBean = new AtomikosDataSourceBean();
+        sourceBean.setXaDataSource(dataSource);
+        sourceBean.setUniqueResourceName(uniqueResourceName);
+        return sourceBean;
     }
 
-    @Bean(name="mysqlTransactionManager")
+   /* @Bean(name="mysqlTransactionManager")
+    @Primary
     public DataSourceTransactionManager mysqlTransactionManager(){
         return new DataSourceTransactionManager(erpDataSource());
-    }
+    }*/
 
     @Bean(name="mysqlSqlSessionFactory")
+    @Primary
     public SqlSessionFactory mysqlSqlSessionFactory(@Qualifier("mysqlDataSource") DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);

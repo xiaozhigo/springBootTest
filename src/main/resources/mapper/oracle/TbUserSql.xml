@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboottest.dao.TbUserDao">
+    <insert id="insertTbUser" parameterType="com.example.springboottest.dto.TbUserDto">
+       insert into tb_user values('1',#{userName},#{age})
+    </insert>
+
+    <sql id="userSeq">
+        select userSeq.Nextval from dual
+    </sql>
+</mapper>

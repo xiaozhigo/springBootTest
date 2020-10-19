@@ -3,6 +3,7 @@ package com.example.springboottest.controller;
 import com.alibaba.fastjson.JSONObject;
 /*import com.dateformat.DateFormatProperties;*/
 import com.example.springboottest.annotation.TestAnnotation;
+import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.proxy.InvoiceProxy;
 import com.example.springboottest.service.ProxyService;
 import com.example.springboottest.service.TestService;
@@ -63,5 +64,6 @@ public class TestController {
         ProxyService proxyService = (ProxyService) invoiceProxy.newProxyInstance(new ProxyServiceImpl());
         return proxyService.queryAllUser();
     }
+
 
 }

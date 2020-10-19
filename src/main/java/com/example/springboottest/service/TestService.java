@@ -1,7 +1,10 @@
 package com.example.springboottest.service;
+import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.mysql.TestDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +19,9 @@ public class TestService {
 
     @Autowired
     private TestDao dao;
+    @Autowired
+    private Test1Service test1Service;
+
     /**
      * 获取当月和前两个月的年月的表名,起始时间,结束时间
      * @return
@@ -101,4 +107,5 @@ public class TestService {
         System.out.println("二狗");
          return list.toString();
     }
+
 }

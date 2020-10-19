@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.13</version>
 		</dependency>
 		<dependency>
 			<groupId>de.codecentric</groupId>
@@ -137,6 +137,11 @@
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-client</artifactId>
 			<version>7.9.1</version>
+		</dependency>
+		<!--多数据源事务处理-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
 		</dependency>
 	</dependencies>
 

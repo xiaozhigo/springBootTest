@@ -1,8 +1,12 @@
 package com.example.springboottest.controller;
 
+import com.example.springboottest.dto.UserDto;
+import com.example.springboottest.service.Test4Service;
+import com.example.springboottest.service.TestService;
 import com.example.springboottest.service.impl.HttpAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +16,9 @@ public class Test4 {
 
     @Autowired
     private HttpAPIService httpAPIService;
+    @Autowired
+    private Test4Service test4Service;
+
 
     @RequestMapping("/test1")
     public void test1(){
@@ -22,5 +29,14 @@ public class Test4 {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 事务处理设置
+     * @return
+     */
+    @RequestMapping("/transactionTest")
+    public void transactionTest(@RequestBody UserDto userDto){
+        test4Service.transactionTest(userDto);
     }
 }
