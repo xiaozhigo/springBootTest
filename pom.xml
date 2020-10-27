@@ -143,6 +143,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
 		</dependency>
+			<!--guava依赖-->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>25.1-jre</version>
+			</dependency>
 	</dependencies>
 
 	<build>
