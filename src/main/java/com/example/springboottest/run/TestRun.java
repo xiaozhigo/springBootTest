@@ -9,6 +9,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * 启动
+ */
 @Component
 @Order(-2147483647)
 @Slf4j
