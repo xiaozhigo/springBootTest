@@ -1,9 +1,11 @@
 package com.example.springboottest.controller;
 
+import com.example.springboottest.config.BloomFilterConfig;
 import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.service.Test4Service;
 import com.example.springboottest.service.TestService;
 import com.example.springboottest.service.impl.HttpAPIService;
+import com.google.common.hash.BloomFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,8 @@ public class Test4 {
     private HttpAPIService httpAPIService;
     @Autowired
     private Test4Service test4Service;
-
+    @Autowired
+    private BloomFilterConfig bloomFilterConfig;
 
     @RequestMapping("/test1")
     public void test1(){
@@ -38,5 +41,18 @@ public class Test4 {
     @RequestMapping("/transactionTest")
     public void transactionTest(@RequestBody UserDto userDto){
         test4Service.transactionTest(userDto);
+    }
+
+    /**
+     * 通过布隆过滤器处理缓存穿透
+     */
+    @RequestMapping("/bloomFilterTest")
+    public void bloomFilterTest(@RequestBody String userId){
+        BloomFilter bloomFilter = bloomFilterConfig.getBloomFilter();
+        boolean flag = bloomFilter.mightContain(userId);
+        //布隆过滤器中存在
+        if(flag){
+
+        }
     }
 }
