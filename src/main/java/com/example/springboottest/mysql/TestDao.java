@@ -23,4 +23,6 @@ public interface TestDao {
     void insertUserDetail(UserDetailDto userDto);
 
     void updateUserId(@Param("id") int id);
+
+    Map queryUserById(@Param("userId")int userId);
 }

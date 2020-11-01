@@ -31,7 +31,7 @@ public class TestRun implements ApplicationRunner{
         BloomFilter bloomFilter = bloomFilterConfig.getBloomFilter();
         List<Map<String, Object>> maps = testDao.queryAllUser();
         maps.forEach(map ->{
-            bloomFilter.put(map.get("user_id"));
+            bloomFilter.put(map.get("user_id").toString());
         });
     }
 }

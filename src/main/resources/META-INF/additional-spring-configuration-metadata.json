@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.redis.cluster.expire-seconds",
+      "type": "java.lang.String",
+      "description": "Description for spring.redis.cluster.expire-seconds."
+  }
+] }
