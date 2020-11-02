@@ -1,6 +1,7 @@
 package com.example.springboottest.controller;
 
 import com.example.springboottest.config.BloomFilterConfig;
+import com.example.springboottest.dto.RedisParam;
 import com.example.springboottest.dto.TbUserDto;
 import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.service.Test4Service;
@@ -52,8 +53,8 @@ public class Test4 {
     }
 
     @RequestMapping("/setValue")
-    public void setValue(@RequestBody String value) {
-        redisTemplate.opsForValue().set(value, value);
+    public void setValue(@RequestBody RedisParam redisParam) {
+        redisTemplate.opsForValue().set(redisParam.getKey(), redisParam.getValue());
     }
 
     /**
