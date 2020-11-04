@@ -1,7 +1,9 @@
 package com.example.springboottest.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.example.springboottest.config.BloomFilterConfig;
+import com.example.springboottest.config.ExcelListener;
 import com.example.springboottest.dto.ExcelDto;
 import com.example.springboottest.dto.RedisParam;
 import com.example.springboottest.dto.TbUserDto;
@@ -12,10 +14,7 @@ import com.google.common.hash.BloomFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -23,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -97,15 +99,39 @@ public class Test4 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String fileName = "用户统计";
+        String fileName = null;
+        try {
+        fileName = URLEncoder.encode("用户统计", "UTF-8");
         List<ExcelDto> list = new ArrayList<>();
         ExcelDto excelDto = new ExcelDto();
         excelDto.setUserId("1");
         excelDto.setUserName("二哈");
         list.add(excelDto);
-        response.setContentType("application/vnd.ms-exce");
+        response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
-        response.addHeader("Content-Disposition", "filename=" + fileName + ".xlsx");
+        response.addHeader("Content-Disposition", "attachment;filename="+fileName+".xlsx");
         EasyExcel.write(outputStream,ExcelDto.class).sheet("用户sheet").doWrite(list);
+        outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @RequestMapping("/importExcel")
+    public void importExcel(@RequestParam(value = "file") MultipartFile multipartFile){
+        InputStream inputStream = null;
+        try {
+            inputStream = multipartFile.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //实例化实现了AnalysisEventListener接口的类
+        ExcelListener listener = new ExcelListener();
+        EasyExcel.read(inputStream,ExcelDto.class,listener).sheet("用户sheet").doRead();
+        List<Object> datas = listener.getDatas();
+        datas.forEach(e ->{
+            System.out.println(e);
+        });
     }
 }
