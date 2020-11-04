@@ -173,6 +173,12 @@
 				<artifactId>guava</artifactId>
 				<version>25.1-jre</version>
 			</dependency>
+        <!--easyexcel-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

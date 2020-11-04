@@ -1,6 +1,8 @@
 package com.example.springboottest.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.example.springboottest.config.BloomFilterConfig;
+import com.example.springboottest.dto.ExcelDto;
 import com.example.springboottest.dto.RedisParam;
 import com.example.springboottest.dto.TbUserDto;
 import com.example.springboottest.dto.UserDto;
@@ -14,7 +16,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -77,5 +87,25 @@ public class Test4 {
             }
         }
         return user;
+    }
+
+    @RequestMapping("/exportExcel")
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response){
+        ServletOutputStream outputStream = null;
+        try {
+            outputStream = response.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String fileName = "用户统计";
+        List<ExcelDto> list = new ArrayList<>();
+        ExcelDto excelDto = new ExcelDto();
+        excelDto.setUserId("1");
+        excelDto.setUserName("二哈");
+        list.add(excelDto);
+        response.setContentType("application/vnd.ms-exce");
+        response.setCharacterEncoding("utf-8");
+        response.addHeader("Content-Disposition", "filename=" + fileName + ".xlsx");
+        EasyExcel.write(outputStream,ExcelDto.class).sheet("用户sheet").doWrite(list);
     }
 }
