@@ -2,8 +2,8 @@ package com.example.springboottest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
-import oracle.jdbc.pool.OracleDataSource;
-import oracle.jdbc.xa.client.OracleXADataSource;
+/*import oracle.jdbc.pool.OracleDataSource;
+import oracle.jdbc.xa.client.OracleXADataSource;*/
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,6 +23,7 @@ import java.sql.SQLException;
  * @author wulei
  * @date 2019-02-13 10:28
  */
+/*
 @Configuration
 @MapperScan(basePackages = OracleDataSourceConfig.PACKAGE, sqlSessionFactoryRef = "oracleSqlSessionFactory")
 public class OracleDataSourceConfig {
@@ -45,7 +46,8 @@ public class OracleDataSourceConfig {
     @Value("${spring.datasource.oracle.uniqueResourceName}")
     private String uniqueResourceName;
 
-    /*@Bean(name = "oracleDataSource")
+    */
+/*@Bean(name = "oracleDataSource")
     public DataSource erpDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClassName);
@@ -53,7 +55,8 @@ public class OracleDataSourceConfig {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
-    }*/
+    }*//*
+
     @Bean(name = "oracleDataSource")
     public DataSource erpDataSource() throws SQLException {
         OracleXADataSource source = new OracleXADataSource();
@@ -69,11 +72,13 @@ public class OracleDataSourceConfig {
     }
 
 
-    /*@Bean(name="oracleTransactionManager")
+    */
+/*@Bean(name="oracleTransactionManager")
     public DataSourceTransactionManager oracleTransactionManager(){
         return new DataSourceTransactionManager(erpDataSource());
     }
-*/
+*//*
+
     @Bean(name="oracleSqlSessionFactory")
     public SqlSessionFactory oracleSqlSessionFactory(@Qualifier("oracleDataSource") DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -83,3 +88,4 @@ public class OracleDataSourceConfig {
         return sessionFactory.getObject();
     }
 }
+*/
