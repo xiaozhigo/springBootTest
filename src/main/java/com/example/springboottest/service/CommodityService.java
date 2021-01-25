@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 public class CommodityService {
 
-    @Autowired
+    @Autowired(required=false)
     private CommodityDao dao;
 
     public Map<String,Object> productAnalysis(JSONArray productItems) {

@@ -21,7 +21,7 @@ public class Test4ServiceImpl implements Test4Service {
     private TestDao dao;
     @Autowired
     private Test1Service test1Service;
-    @Autowired
+    @Autowired(required=false)
     private TbUserDao tbUserDao;
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)

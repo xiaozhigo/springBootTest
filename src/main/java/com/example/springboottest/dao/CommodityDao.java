@@ -11,7 +11,7 @@ import java.util.Map;
  * @date 2019-01-22 13:16
  */
 @Repository
-@Mapper
+//@Mapper
 public interface CommodityDao {
 
     List<Map<String,Object>> productAnalysis(Map<Object, Object> param);

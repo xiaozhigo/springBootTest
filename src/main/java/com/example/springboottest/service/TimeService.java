@@ -15,7 +15,7 @@ import java.util.*;
 @Service
 public class TimeService {
 
-    @Autowired
+    @Autowired(required = false)
     private TimeDao dao;
 
     public Boolean queryInterfaceCall(Date date) {

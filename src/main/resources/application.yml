@@ -37,3 +37,6 @@ es:
   host: 192.168.176.128
   port: 9200
   scheme: http
+# 打印sql
+logging:
+  config: classpath:logback-spring.xml

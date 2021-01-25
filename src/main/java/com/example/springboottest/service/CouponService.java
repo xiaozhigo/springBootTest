@@ -21,7 +21,7 @@ import java.util.Map;
 @Service
 public class CouponService {
 
-    @Autowired
+    @Autowired(required = false)
     private CouponsDao dao;
 
     public Map<String, Object> qryGoords(JSONObject reqBody) {
