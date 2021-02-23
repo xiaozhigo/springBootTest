@@ -1,6 +1,8 @@
 package com.example.springboottest.test;
 
 import com.example.springboottest.dto.KeyValueModel;
+import com.example.springboottest.dto.UserDetailDto;
+import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.service.TestService;
 import org.junit.Test;
 
@@ -8,10 +10,7 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -82,5 +81,38 @@ public class Test3 {
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> collect = list.parallelStream().map(i -> i * 2).collect(Collectors.toList());
         System.out.println(collect);
+    }
+
+    @Test
+    public void test8(){
+        Optional<Object> optional = Optional.ofNullable(null);
+        Object o = optional.orElse(0);
+        Object elseGet = optional.orElseGet(() -> 1);
+        boolean present = optional.isPresent();
+        System.out.println(present);
+        System.out.println(o);
+        System.out.println(elseGet);
+    }
+
+    @Test
+    public void test9(){
+        Optional<Object> optional = Optional.ofNullable(1);
+        Object aThrow = optional.orElseThrow(() -> new IllegalArgumentException());
+        System.out.println(aThrow);
+    }
+
+    @Test
+    public void test10(){
+        UserDetailDto userDto = new UserDetailDto("tomcat","cat",null);
+        Integer integer = Optional.ofNullable(userDto).map(u -> u.getUserId()).orElse(2);
+        System.out.println(integer);
+    }
+
+    @Test
+    public void test11(){
+        UserDetailDto userDetailDto = new UserDetailDto("tomcat","cat",null);
+        Optional<UserDetailDto> result = Optional.ofNullable(userDetailDto).filter(u -> u.getUserId() != null && u.getDetailName().contains("c"));
+        System.out.println(result.isPresent());
+        System.out.println(result);
     }
 }
