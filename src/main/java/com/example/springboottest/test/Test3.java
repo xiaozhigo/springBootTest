@@ -3,6 +3,8 @@ package com.example.springboottest.test;
 import com.example.springboottest.dto.KeyValueModel;
 import com.example.springboottest.dto.UserDetailDto;
 import com.example.springboottest.service.TestService;
+import com.example.springboottest.util.GsonSingle;
+import com.google.gson.Gson;
 import org.junit.Test;
 
 
@@ -176,7 +178,7 @@ public class Test3 {
     @Test
     public void test16() {
         int processors = Runtime.getRuntime().availableProcessors();
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(processors, processors * 2, 1L, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(20), new ThreadPoolExecutor.CallerRunsPolicy());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(processors*2, processors * 4, 1L, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(20), new ThreadPoolExecutor.CallerRunsPolicy());
         for (int i = 0; i < 5; i++) {
             executor.execute(new Runnable() {
                 @Override
@@ -186,5 +188,12 @@ public class Test3 {
             });
         }
         executor.shutdown();
+    }
+
+    @Test
+    public void test17(){
+        Gson instance = GsonSingle.INSTANCE.getInstance();
+        Gson instance1 = GsonSingle.INSTANCE.getInstance();
+        System.out.println(instance == instance1);
     }
 }
