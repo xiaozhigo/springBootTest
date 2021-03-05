@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import org.junit.Test;
 
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -195,5 +196,15 @@ public class Test3 {
         Gson instance = GsonSingle.INSTANCE.getInstance();
         Gson instance1 = GsonSingle.INSTANCE.getInstance();
         System.out.println(instance == instance1);
+    }
+
+    @Test
+    public void test18() throws Exception {
+        Class<GsonSingle> gsonSingleClass = GsonSingle.class;
+        Constructor<GsonSingle> declaredConstructor = gsonSingleClass.getDeclaredConstructor(String.class,int.class);
+        declaredConstructor.setAccessible(true);
+        GsonSingle gsonSingle = declaredConstructor.newInstance(String.class,int.class);
+        Gson instance = gsonSingle.getInstance();
+        instance.toString();
     }
 }
