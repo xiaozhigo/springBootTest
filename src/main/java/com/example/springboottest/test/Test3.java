@@ -198,6 +198,7 @@ public class Test3 {
         System.out.println(instance == instance1);
     }
 
+
     @Test
     public void test18() throws Exception {
         Class<GsonSingle> gsonSingleClass = GsonSingle.class;
