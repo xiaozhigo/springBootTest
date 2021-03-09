@@ -208,4 +208,5 @@ public class Test3 {
         Gson instance = gsonSingle.getInstance();
         instance.toString();
     }
+
 }
