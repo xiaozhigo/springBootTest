@@ -10,11 +10,17 @@ import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 
 public class Test3 {
@@ -207,6 +213,50 @@ public class Test3 {
         GsonSingle gsonSingle = declaredConstructor.newInstance(String.class,int.class);
         Gson instance = gsonSingle.getInstance();
         instance.toString();
+    }
+
+    @Test
+    public void test19(){
+        LocalDateTime now = LocalDateTime.now();
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        String format = dateTimeFormatter.format(now);
+        System.out.println(format);
+    }
+
+    @Test
+    public void test20(){
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime of = LocalDateTime.ofInstant(instant, zoneId);
+        System.out.println(of);
+    }
+
+    @Test
+    public void test21(){
+        LocalDateTime now = LocalDateTime.now();
+        ZoneId zoneId = ZoneId.systemDefault();
+        Instant instant = now.atZone(zoneId).toInstant();
+        Date from = Date.from(instant);
+        System.out.println(from);
+    }
+
+    @Test
+    public void test22() throws NoSuchAlgorithmException {
+        SecureRandom instanceStrong = SecureRandom.getInstanceStrong();
+        instanceStrong.setSeed(1L);
+        int i = instanceStrong.nextInt();
+        System.out.println(i);
+    }
+
+    @Test
+    public void test23(){
+        LongAdder longAdder = new LongAdder();
+        longAdder.add(100L);
+        System.out.println(longAdder);
+        longAdder.add(1L);
+        System.out.println(longAdder);
     }
 
 }
