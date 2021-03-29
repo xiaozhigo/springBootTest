@@ -40,3 +40,17 @@ es:
 # 打印sql
 logging:
   config: classpath:logback-spring.xml
+
+okhttp3:
+  #是否启用 okhttp3 默认启用
+  enabled: true
+  #连接超时时间，单位秒
+  connect-timeout: 10
+  #读超时时间，单位秒
+  read-timeout: 10
+  #写超时时间，单位秒
+  write-timeout: 10
+  #是否启用自动ping 0不使用
+  ping-interval: 0
+  #是否失败后自动重试
+  retry-on-connection-failure: false

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.annotation.TestAnnotation;
 import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.proxy.InvoiceProxy;
+import com.example.springboottest.service.OkHttp3Service;
 import com.example.springboottest.service.ProxyService;
 import com.example.springboottest.service.TestService;
 import com.example.springboottest.service.impl.ProxyServiceImpl;
@@ -27,6 +28,8 @@ public class TestController {
 
     @Autowired
     public TestService testService;
+    @Autowired
+    private OkHttp3Service okHttp3Service;
 
     @RequestMapping("/createTime")
     @TestAnnotation("1")
@@ -65,5 +68,10 @@ public class TestController {
         return proxyService.queryAllUser();
     }
 
+    @RequestMapping("/ok3Test")
+    public String ok3Test(){
+        String s = okHttp3Service.get("http://localhost:9005/everyapi/crontabRest/overTimeCheckHandle");
+        return s;
+    }
 
 }
