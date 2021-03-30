@@ -5,11 +5,23 @@ import com.example.springboottest.dto.UserDetailDto;
 import com.example.springboottest.service.TestService;
 import com.example.springboottest.util.GsonSingle;
 import com.google.gson.Gson;
+import com.sun.deploy.util.SyncFileAccess;
 import org.junit.Test;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Instant;
@@ -259,4 +271,28 @@ public class Test3 {
         System.out.println(longAdder);
     }
 
+    @Test
+    public void nioTest() throws IOException {
+        FileInputStream stream = new FileInputStream(new File("C:\\Users\\wulei\\IdeaProjects\\springBootTest\\src\\main\\resources\\新建文本文档.txt"));
+        FileChannel channel = stream.getChannel();
+        ByteBuffer bf = ByteBuffer.allocate(1024);
+        channel.read(bf);
+        System.out.println(new String(bf.array()));
+        stream.close();
+    }
+
+    @Test
+    public void aioTest() throws IOException, ExecutionException, InterruptedException {
+        AsynchronousFileChannel fileChannel = AsynchronousFileChannel.open(Paths.get("C:\\Users\\wulei\\IdeaProjects\\springBootTest\\src\\main\\resources\\新建文本文档.txt"), StandardOpenOption.READ);
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        Future<Integer> result = fileChannel.read(buffer, 0);
+        while (!result.isDone());
+        buffer.flip();
+        System.out.println("主线程执行完毕");
+        Integer bytesRead = result.get();
+        System.out.println(buffer.position());
+        System.out.println(Charset.forName("UTF-8").decode(buffer).toString());
+        System.out.println("Bytes read [" + bytesRead + "]");
+        fileChannel.close();
+    }
 }
