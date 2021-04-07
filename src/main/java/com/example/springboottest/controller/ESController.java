@@ -23,7 +23,7 @@ public class ESController {
      * @throws
      * @date 2019/11/19 18:48
      */
-    @RequestMapping(value = "/exist/{index}")
+    @GetMapping(value = "/exist/{index}")
     public ResponseResult indexExist(@PathVariable(value = "index") String index){
 
         ResponseResult response = new ResponseResult();
@@ -73,7 +73,7 @@ public class ESController {
      * 删除索引
      * @param index
      */
-    @RequestMapping(value = "/deleteIndex/{index}")
+    @GetMapping(value = "/deleteIndex/{index}")
     public void deleteIndex(@PathVariable(value = "index") String index){
         baseElasticService.deleteIndex(index);
     }

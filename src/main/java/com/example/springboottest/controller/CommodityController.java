@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class CommodityController {
      * @param requestBody
      * @return
      */
-    @RequestMapping("/productAnalysis")
+    @PostMapping("/productAnalysis")
     public String productAnalysis(@RequestBody String requestBody){
            Map<String, Object> response = new HashMap<>();
            try{

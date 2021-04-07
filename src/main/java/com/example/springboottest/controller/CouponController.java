@@ -3,6 +3,7 @@ package com.example.springboottest.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class CouponController {
      * 查询可依附的商品
      * @return
      */
-    @RequestMapping("/qryGoords")
+    @PostMapping("/qryGoords")
     public String qryGoords(@RequestBody String reuqestBody){
         Map<String, Object> response = new HashMap<>();
         try {
@@ -44,7 +45,7 @@ public class CouponController {
      * @param requestBody
      * @return
      */
-    @RequestMapping("/qryCouponInfo")
+    @PostMapping("/qryCouponInfo")
     public String qryCouponInfo(@RequestBody String requestBody){
         Map<String, Object> response = new HashMap<>();
         try{
