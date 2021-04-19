@@ -46,6 +46,21 @@ spring:
       filters: stat,wall,slf4j
       # 通过connectProperties属性来打开mergeSql功能；记录慢SQL
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  kafka:
+    bootstrap-servers: 192.168.176.128:9092,192.168.176.128:9093,192.168.176.128:9094
+    #消费者
+    consumer:
+      group-id: group
+      enable-auto-commit: true
+      auto-offset-reset: latest
+      auto-commit-interval: 5s
+    #生产者
+    producer:
+      retries: 1
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 redis:
   timeout: 10000 #客户端超时时间单位是毫秒 默认是2000
@@ -96,3 +111,5 @@ okhttp3:
   ping-interval: 0
   #是否失败后自动重试
   retry-on-connection-failure: false
+
+topic: test-topic

@@ -3,6 +3,7 @@ package com.example.springboottest.controller;
 import com.alibaba.fastjson.JSONObject;
 /*import com.dateformat.DateFormatProperties;*/
 import com.example.springboottest.annotation.TestAnnotation;
+import com.example.springboottest.config.KafkaProducer;
 import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.proxy.InvoiceProxy;
 import com.example.springboottest.service.OkHttp3Service;
@@ -12,6 +13,7 @@ import com.example.springboottest.service.impl.ProxyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -30,6 +32,8 @@ public class TestController {
     public TestService testService;
     @Autowired
     private OkHttp3Service okHttp3Service;
+    @Autowired
+    private KafkaProducer kafkaProducer;
 
     @RequestMapping("/createTime")
     @TestAnnotation("1")
@@ -73,6 +77,16 @@ public class TestController {
     public String ok3Test(){
         String s = okHttp3Service.get("http://localhost:9005/everyapi/crontabRest/overTimeCheckHandle");
         return s;
+    }
+
+    @RequestMapping("/kafkaTest")
+    public String kafkaTest(@RequestParam("message") String message){
+        try{
+            kafkaProducer.send(message);
+            return "kafka发送消息成功";
+        }catch (Exception e){
+            return "kafka发送消息失败,失败原因:"+e.toString();
+        }
     }
 
 }
