@@ -295,4 +295,11 @@ public class Test3 {
         System.out.println("Bytes read [" + bytesRead + "]");
         fileChannel.close();
     }
+
+    @Test
+    public void stringJoinTest(){
+        StringJoiner joiner = new StringJoiner(",", "前缀", "后缀");
+        joiner.add("1").add("2").add("3");
+        System.out.println(joiner.toString());
+    }
 }
