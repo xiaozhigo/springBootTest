@@ -21,9 +21,12 @@ redisson:
           readMode: "SLAVE"
           subscriptionMode: "SLAVE"
           nodeAddresses:
-          - "redis://192.168.35.142:7002"
-          - "redis://192.168.35.142:7001"
-          - "redis://192.168.35.142:7000"
+          - "redis://192.168.176.128:6379"
+          - "redis://192.168.176.128:6380"
+          - "redis://192.168.176.128:6381"
+          - "redis://192.168.176.128:6382"
+          - "redis://192.168.176.128:6383"
+          - "redis://192.168.176.128:6384"
           scanInterval: 1000
           pingConnectionInterval: 0
           keepAlive: false
