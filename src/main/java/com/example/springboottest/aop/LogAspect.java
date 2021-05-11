@@ -38,8 +38,8 @@ public class LogAspect {
 
     @AfterThrowing(pointcut = "LogAspectMethod()", throwing = "e")
     public void doAfterThrow(JoinPoint joinPoint, Throwable e) {
-        log.error(e.getMessage());
         threadLocal.remove();
+        log.error(e.getMessage(),e);
     }
 
 
