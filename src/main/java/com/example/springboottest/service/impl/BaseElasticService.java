@@ -1,7 +1,12 @@
 package com.example.springboottest.service.impl;
 
+import com.example.springboottest.dto.ElasticEntity;
+import com.example.springboottest.dto.TbUserDto;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 
 public interface BaseElasticService {
@@ -13,4 +18,8 @@ public interface BaseElasticService {
     void createIndex(String idxName, String idxSql) throws Exception;
 
     void deleteIndex(String index);
+
+    <T> List<T> search(String idxName, SearchSourceBuilder sourceBuilder, Class<T> c);
+
+    void insertOrUpdateOne(String index, ElasticEntity elasticEntity);
 }

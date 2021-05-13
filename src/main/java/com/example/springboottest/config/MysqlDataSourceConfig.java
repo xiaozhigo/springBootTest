@@ -69,11 +69,11 @@ public class MysqlDataSourceConfig {
         return sourceBean;
     }
 
-   /* @Bean(name="mysqlTransactionManager")
+    @Bean(name="mysqlTransactionManager")
     @Primary
-    public DataSourceTransactionManager mysqlTransactionManager(){
+    public DataSourceTransactionManager mysqlTransactionManager() throws SQLException {
         return new DataSourceTransactionManager(erpDataSource());
-    }*/
+    }
 
     @Bean(name="mysqlSqlSessionFactory")
     @Primary

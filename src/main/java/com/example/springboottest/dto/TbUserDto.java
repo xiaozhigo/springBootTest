@@ -8,4 +8,6 @@ public class TbUserDto {
     private Integer userId;
 
     private String userName;
+
+    private String age;
 }

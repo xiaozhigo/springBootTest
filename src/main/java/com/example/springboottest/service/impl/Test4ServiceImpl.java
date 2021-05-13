@@ -33,6 +33,7 @@ public class Test4ServiceImpl implements Test4Service {
         //新增user进oracle数据库
         TbUserDto tbUserDto = new TbUserDto();
         tbUserDto.setUserName(userDto.getUserName());
+        tbUserDto.setAge("10");
         //int i = 10/0;
         tbUserDao.insertTbUser(tbUserDto);
     }

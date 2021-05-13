@@ -2,6 +2,7 @@ package com.example.springboottest.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.example.springboottest.dto.ElasticEntity;
+import com.example.springboottest.dto.TbUserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -228,6 +229,7 @@ public class BaseElasticServiceImpl implements BaseElasticService{
      * @throws
      * @since
      */
+    @Override
     public <T> List<T> search(String idxName, SearchSourceBuilder builder, Class<T> c) {
         SearchRequest request = new SearchRequest(idxName);
         request.source(builder);
@@ -243,6 +245,7 @@ public class BaseElasticServiceImpl implements BaseElasticService{
             throw new RuntimeException(e);
         }
     }
+
 
     /** 删除index
      * @author WCNGS@QQ.COM
@@ -264,6 +267,8 @@ public class BaseElasticServiceImpl implements BaseElasticService{
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     /**
