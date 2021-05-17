@@ -72,10 +72,10 @@ public class OracleDataSourceConfig {
 
 
 
-    @Bean(name="oracleTransactionManager")
-    public DataSourceTransactionManager oracleTransactionManager() throws SQLException {
-        return new DataSourceTransactionManager(erpDataSource());
-    }
+/*    @Bean(name="oracleTransactionManager")
+    public DataSourceTransactionManager oracleTransactionManager(@Qualifier("oracleDataSource") DataSource dataSource) throws SQLException {
+        return new DataSourceTransactionManager(dataSource);
+    }*/
 
 
     @Bean(name="oracleSqlSessionFactory")
