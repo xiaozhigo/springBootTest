@@ -6,8 +6,8 @@ import com.example.springboottest.service.TestService;
 import com.example.springboottest.util.GsonSingle;
 import com.google.gson.Gson;
 import com.sun.deploy.util.SyncFileAccess;
+import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -301,5 +301,27 @@ public class Test3 {
         StringJoiner joiner = new StringJoiner(",", "前缀", "后缀");
         joiner.add("1").add("2").add("3");
         System.out.println(joiner.toString());
+    }
+
+    @Test
+    public void stopWatchTest() throws InterruptedException {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Thread.sleep(1000);
+        System.out.println("---------"+stopWatch.getTime());
+        Thread.sleep(1000);
+        stopWatch.split();
+        System.out.println(">>>>>>>>>"+stopWatch.getSplitTime());
+        stopWatch.reset();
+        stopWatch.start();
+        Thread.sleep(2000);
+        System.out.println(stopWatch.getTime());
+        stopWatch.suspend();
+        System.out.println("暂停2秒钟");
+        Thread.sleep(2000);
+        stopWatch.resume();
+        Thread.sleep(1000);
+        stopWatch.stop();
+        System.out.println("<<<<<<<<"+stopWatch.getTime());
     }
 }
