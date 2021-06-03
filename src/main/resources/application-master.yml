@@ -1,4 +1,14 @@
+server:
+  port: 9090
+
 spring:
+  application:
+    name: springboottest
+  boot:
+    admin:
+     client:
+     #springboot-admin客户端连接服务器
+      url: http://localhost:9093
   redis:
     database: 0
     cluster:
@@ -47,6 +57,19 @@ spring:
       filters: stat,wall,slf4j
       # 通过connectProperties属性来打开mergeSql功能；记录慢SQL
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    oracle:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = XE)))
+      username: wulei
+      password: 123
+      dbcp2:
+        max-idle: 10
+        max-wait-millis: 10000
+        min-idle: 5
+        initial-size: 5
+        uniqueResourceName: oracleDataSource
+
+
   kafka:
     bootstrap-servers: 192.168.176.128:9092,192.168.176.128:9093,192.168.176.128:9094
     #消费者
@@ -98,6 +121,13 @@ es:
 # 打印sql
 logging:
   config: classpath:logback-spring.xml
+  level:
+    com:
+      example:
+        springboottest:
+          dao: info
+  path: /java-log
+  level: info
 
 okhttp3:
   #是否启用 okhttp3 默认启用
@@ -114,3 +144,27 @@ okhttp3:
   retry-on-connection-failure: false
 
 topic: test-topic
+
+management:
+  endpoints:
+    web:
+     exposure:
+       #监控所有端点，其中health和status是必须监控的
+       include: *
+       #排除对配置信息的监控，每次浏览这个节点的时候
+       exclude: configprops
+  endpoint:
+    health:
+     #显示健康具体信息  默认不会显示详细信息
+     show-details: always
+
+info:
+  version: @project.version@
+  groupId: @project.groupId@
+  artifactId: @project.artifactId@
+
+# 设置日志保存的路径，path和file只需要设置一个，指定path则日志名称固定为spring.log
+# 打印日志的级别
+formatter:
+  enabled: true
+  pattern: YYYY-MM-DD
