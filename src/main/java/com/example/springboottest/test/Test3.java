@@ -6,6 +6,7 @@ import com.example.springboottest.service.TestService;
 import com.example.springboottest.util.GsonSingle;
 import com.google.gson.Gson;
 import com.sun.deploy.util.SyncFileAccess;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
 
@@ -31,9 +32,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Test3 {
 
@@ -323,5 +326,46 @@ public class Test3 {
         Thread.sleep(1000);
         stopWatch.stop();
         System.out.println("<<<<<<<<"+stopWatch.getTime());
+    }
+
+    @Test
+    public void lockTest(){
+        CountDownLatch latch = new CountDownLatch(10);
+        AtomicInteger integer = new AtomicInteger();
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
+        IntStream.range(0,10).forEach(e ->{
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            threadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    //加锁
+                    boolean set = integer.compareAndSet(0, 1);
+                    if(set){
+                        System.out.println(Thread.currentThread().getName()+"获取锁成功");
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                        //解锁
+                        integer.set(0);
+                        System.out.println("初始值:"+integer);
+                        latch.countDown();
+                    }else{
+                        System.out.println(Thread.currentThread().getName()+"未获取到锁");
+                        latch.countDown();
+                    }
+                }
+            });
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

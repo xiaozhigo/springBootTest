@@ -2,8 +2,8 @@ package com.example.springboottest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
-import oracle.jdbc.pool.OracleDataSource;
-import oracle.jdbc.xa.client.OracleXADataSource;
+/*import oracle.jdbc.pool.OracleDataSource;
+import oracle.jdbc.xa.client.OracleXADataSource;*/
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,7 +23,7 @@ import java.sql.SQLException;
  * @author wulei
  * @date 2019-02-13 10:28
  */
-@Configuration
+/*@Configuration
 @MapperScan(basePackages = OracleDataSourceConfig.PACKAGE, sqlSessionFactoryRef = "oracleSqlSessionFactory")
 public class OracleDataSourceConfig {
 
@@ -46,7 +46,7 @@ public class OracleDataSourceConfig {
     private String uniqueResourceName;
 
 
-    /*@Bean(name = "oracleDataSource")
+    *//*@Bean(name = "oracleDataSource")
     public DataSource erpDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClassName);
@@ -54,7 +54,7 @@ public class OracleDataSourceConfig {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
-    }*/
+    }*//*
 
     @Bean(name = "oracleDataSource")
     public DataSource erpDataSource() throws SQLException {
@@ -72,10 +72,10 @@ public class OracleDataSourceConfig {
 
 
 
-/*    @Bean(name="oracleTransactionManager")
+*//*    @Bean(name="oracleTransactionManager")
     public DataSourceTransactionManager oracleTransactionManager(@Qualifier("oracleDataSource") DataSource dataSource) throws SQLException {
         return new DataSourceTransactionManager(dataSource);
-    }*/
+    }*//*
 
 
     @Bean(name="oracleSqlSessionFactory")
@@ -86,5 +86,5 @@ public class OracleDataSourceConfig {
                 .getResources(OracleDataSourceConfig.MAPPER_LOCATION));
         return sessionFactory.getObject();
     }
-}
+}*/
 
