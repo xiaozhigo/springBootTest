@@ -2,6 +2,7 @@ package com.example.springboottest.test;
 
 import com.example.springboottest.dto.KeyValueModel;
 import com.example.springboottest.dto.UserDetailDto;
+import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.service.TestService;
 import com.example.springboottest.util.GsonSingle;
 import com.google.gson.Gson;
@@ -367,5 +368,21 @@ public class Test3 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    public void setTest(){
+        List<UserDetailDto> list = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+             UserDetailDto dto = new UserDetailDto();
+             dto.setUserId(i);
+             dto.setDetailName("d"+i);
+             dto.setDetailMessage("m"+i);
+             list.add(dto);
+        }
+        Set<Integer> set = list.stream().filter(e ->(e.getUserId()==1)).map(UserDetailDto::getUserId).collect(Collectors.toSet());
+        List<UserDetailDto> dtoList = list.stream().filter(e -> set.contains(e.getUserId())).collect(Collectors.toList());
+        System.out.println(dtoList);
     }
 }
