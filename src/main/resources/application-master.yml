@@ -118,6 +118,7 @@ es:
   host: 192.168.176.128
   port: 9200
   scheme: http
+
 # 打印sql
 logging:
   config: classpath:logback-spring.xml
@@ -150,7 +151,7 @@ management:
     web:
      exposure:
        #监控所有端点，其中health和status是必须监控的
-       include: *
+       include: '*'
        #排除对配置信息的监控，每次浏览这个节点的时候
        exclude: configprops
   endpoint:
