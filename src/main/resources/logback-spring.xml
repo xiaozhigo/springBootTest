@@ -195,7 +195,7 @@
         <appender-ref ref="logstash"/>
     </root>
     <!--特定日志级别,其中xxx为项目名称-->
-    <logger name="com.example.springboottest.controller" level="info" additivity="false">
+    <logger name="com.example.springboottest" level="info" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="logstash"/>
     </logger>
