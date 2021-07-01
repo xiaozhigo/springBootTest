@@ -8,13 +8,11 @@ import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.proxy.InvoiceProxy;
 import com.example.springboottest.service.OkHttp3Service;
 import com.example.springboottest.service.ProxyService;
+import com.example.springboottest.service.RetryService;
 import com.example.springboottest.service.TestService;
 import com.example.springboottest.service.impl.ProxyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +32,8 @@ public class TestController {
     private OkHttp3Service okHttp3Service;
     @Autowired
     private KafkaProducer kafkaProducer;
+    @Autowired
+    private RetryService retryService;
 
     @RequestMapping("/createTime")
     @TestAnnotation("1")
@@ -87,6 +87,14 @@ public class TestController {
         }catch (Exception e){
             return "kafka发送消息失败,失败原因:"+e.toString();
         }
+    }
+
+    /**
+     * 重试功能测试
+     */
+    @RequestMapping(value = "retryTest",method = RequestMethod.GET)
+    public void retryTest(){
+        retryService.call();
     }
 
 }
