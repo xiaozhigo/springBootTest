@@ -385,4 +385,28 @@ public class Test3 {
         List<UserDetailDto> dtoList = list.stream().filter(e -> set.contains(e.getUserId())).collect(Collectors.toList());
         System.out.println(dtoList);
     }
+
+
+    @Test
+    public void IntegerTest(){
+        Integer integer1 = new Integer(100);
+        Integer integer2 = 100;
+        int i1 = 100;
+        Integer integer3 = new Integer(130);
+        Integer integer4 = 130;
+        int i2 = 130;
+        System.out.println(integer1 == integer2);
+        System.out.println(integer1.equals(integer2));
+        System.out.println(i1 == integer1);
+        System.out.println(i1 == integer2);
+
+
+        System.out.println(integer3 == integer4);
+        System.out.println(integer3.equals(integer4));
+        System.out.println(i2 == integer3);
+        System.out.println(i2 == integer4);
+
+
+
+    }
 }

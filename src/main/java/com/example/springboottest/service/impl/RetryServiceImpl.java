@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class RetryServiceImpl implements RetryService {
 
     @Override
-    @Retryable(value = {Exception.class},maxAttempts = 3,backoff = @Backoff(delay = 1000L,multiplier = 1.5))
+    @Retryable(value = {Exception.class},maxAttempts = 5,backoff = @Backoff(delay = 1000L,multiplier = 1.5))
     public void call() {
         log.info("~~~~~~重试测试开始~~~~~~~");
         try {
