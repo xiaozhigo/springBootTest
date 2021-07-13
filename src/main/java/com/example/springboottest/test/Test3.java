@@ -405,8 +405,11 @@ public class Test3 {
         System.out.println(integer3.equals(integer4));
         System.out.println(i2 == integer3);
         System.out.println(i2 == integer4);
+    }
 
-
-
+    @Test
+    public void builderTest(){
+        BuilderTest test = new BuilderTest.UserBuilder().setId(1).setName("二哈").setList(Arrays.asList("1", "2", "3")).bulider();
+        System.out.println(test.getId()+","+test.getName()+","+test.getList());
     }
 }
