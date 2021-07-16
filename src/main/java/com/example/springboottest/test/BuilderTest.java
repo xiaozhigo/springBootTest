@@ -22,6 +22,9 @@ public class BuilderTest {
         return list;
     }
 
+    public BuilderTest() {
+    }
+
     private BuilderTest(UserBuilder userBuilder) {
         this.id = userBuilder.id;
         this.name = userBuilder.name;

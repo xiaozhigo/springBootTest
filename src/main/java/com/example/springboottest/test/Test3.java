@@ -10,6 +10,7 @@ import com.sun.deploy.util.SyncFileAccess;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -411,5 +412,23 @@ public class Test3 {
     public void builderTest(){
         BuilderTest test = new BuilderTest.UserBuilder().setId(1).setName("二哈").setList(Arrays.asList("1", "2", "3")).bulider();
         System.out.println(test.getId()+","+test.getName()+","+test.getList());
+    }
+
+    @Test
+    public void ThreadExceptionTest() throws InterruptedException {
+        System.out.println("运行");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    System.out.println("运行线程");
+                    throw new RuntimeException("~~~~~~~~~~抛出异常~~~~~~~~");
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+        thread.start();
+        thread.join();
     }
 }
