@@ -128,7 +128,6 @@ logging:
         springboottest:
           dao: info
   path: /java-log
-  level: info
 
 okhttp3:
   #是否启用 okhttp3 默认启用

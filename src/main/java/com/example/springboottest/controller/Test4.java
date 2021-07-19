@@ -11,6 +11,7 @@ import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.service.Test4Service;
 import com.example.springboottest.service.impl.HttpAPIService;
 import com.google.common.hash.BloomFilter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -31,6 +32,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin
+@Slf4j
 public class Test4 {
 
     @Autowired
@@ -47,7 +49,9 @@ public class Test4 {
     public void test1() {
         try {
             //query 检索关键字 tag检索偏好 region 检索行政区划区域 output=json ak百度开发者访问密钥
+            log.info("~~~~~~~~~日志测试开始~~~~~~~");
             String s = httpAPIService.doGet("http://api.map.baidu.com/place/v2/search?query=ATM机&tag=银行&region=北京&output=json&ak=stlbPbu14MAXvcIMoR39D8vfQycPFGil");
+            log.info("~~~~~~~~~日志测试结束~~~~~~~");
             System.out.println(s);
         } catch (Exception e) {
             e.printStackTrace();

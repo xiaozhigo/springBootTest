@@ -431,4 +431,19 @@ public class Test3 {
         thread.start();
         thread.join();
     }
+
+    private static int jj;
+
+    public static int test24(){
+      int i = 2;
+      int j = 6;
+      int k = i+j;
+      return k;
+     }
+
+    public static void main(String[] args) {
+        int kk = test24();
+        System.out.println(kk);
+        System.out.println(jj);
+    }
 }

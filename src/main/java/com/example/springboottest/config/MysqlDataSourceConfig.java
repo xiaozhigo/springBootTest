@@ -1,6 +1,8 @@
 package com.example.springboottest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.atomikos.icatch.jta.UserTransactionImp;
+import com.atomikos.icatch.jta.UserTransactionManager;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -83,6 +86,13 @@ public class MysqlDataSourceConfig {
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(MysqlDataSourceConfig.MAPPER_LOCATION));
         return sessionFactory.getObject();
+    }
+
+    @Bean("xaTransaction")
+    public JtaTransactionManager jtaTransactionManager(){
+        UserTransactionImp userTransactionImp = new UserTransactionImp();
+        UserTransactionManager manager = new UserTransactionManager();
+        return new JtaTransactionManager(userTransactionImp,manager);
     }
 
 }
