@@ -24,7 +24,7 @@ public class Test4ServiceImpl implements Test4Service {
     @Autowired(required=false)
     private TbUserDao tbUserDao;
 
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    @Transactional(transactionManager = "xaTransaction",propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void transactionTest(UserDto userDto) {
         //新增user
         dao.insertUser(userDto);
