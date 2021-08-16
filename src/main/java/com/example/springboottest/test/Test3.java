@@ -496,4 +496,5 @@ public class Test3 {
             System.out.println("detailDto:"+detailDto);
         }
     }
+
 }
