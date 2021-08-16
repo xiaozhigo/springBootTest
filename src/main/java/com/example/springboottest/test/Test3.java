@@ -7,6 +7,7 @@ import com.example.springboottest.service.TestService;
 import com.example.springboottest.util.GsonSingle;
 import com.google.gson.Gson;
 import com.sun.deploy.util.SyncFileAccess;
+import io.swagger.models.auth.In;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
@@ -445,5 +446,54 @@ public class Test3 {
         int kk = test24();
         System.out.println(kk);
         System.out.println(jj);
+    }
+
+    @Test
+    public void test25(){
+        List<String> list = Arrays.asList("1", "2", "3");
+        list.forEach(e ->{
+            if("1".equals(e)){
+                return;
+            }
+            System.out.println("--"+e+"--");
+        });
+
+        list.stream().forEach(e ->{
+            if ("1".equals(e)){
+                return;
+            }
+            System.out.println("<<"+e+">>");
+        });
+    }
+
+    @Test
+    public void test26(){
+        List<UserDetailDto> list = new ArrayList<>();
+        HashMap<String, UserDetailDto> map = new HashMap<>();
+        List<UserDetailDto> arrayList = new ArrayList<>();
+        for (int i = 0;i < 5;i++){
+            UserDetailDto userDetailDto = new UserDetailDto();
+            userDetailDto.setUserId(i);
+            list.add(userDetailDto);
+        }
+        list.forEach(e ->{
+            map.put(e.getUserId()+"",e);
+        });
+        for (int i = 0;i < 4;i++){
+             if(!Objects.isNull(map.get(i+""))){
+                 UserDetailDto detailDto = map.get(i + "");
+                 detailDto.setDetailName("name"+i);
+                 detailDto.setDetailMessage("message"+i);
+                 arrayList.add(detailDto);
+             }
+        }
+        Iterator<Map.Entry<String, UserDetailDto>> iterator = map.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry<String, UserDetailDto> entry = iterator.next();
+            System.out.println(entry.getValue());
+        }
+        for (UserDetailDto detailDto : arrayList) {
+            System.out.println("detailDto:"+detailDto);
+        }
     }
 }
