@@ -4,6 +4,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
+import org.springframework.util.DigestUtils;
+import redis.clients.jedis.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -23,12 +25,81 @@ public class RedisUtil {
     /** -------------------key相关操作--------------------- */
 
     /**
+     * 单机链接池
+     */
+    private static JedisPool jedisPool = null;
+
+    /**
+     * 分片链接池
+     */
+    private static ShardedJedisPool shardedJedisPool = null;
+
+    /**
+     * 集群链接池
+     */
+    private JedisCluster jedisCluster = null;
+
+    protected abstract class Command {
+        /**
+         * @return 执行结果
+         * @方法名称 exeLife
+         * @功能描述 <pre>运行生命周期</pre>
+         */
+        @SuppressWarnings("unchecked")
+        public <T> T exeLife() {
+            T obj = null;
+            if (null != jedisPool) {
+                Jedis jedis = jedisPool.getResource();
+                try {
+                    obj = (T) exe(jedis);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    jedis.close();
+                }
+            } else if (null != shardedJedisPool) {
+                ShardedJedis shardedJedis = shardedJedisPool.getResource();
+                try {
+                    obj = (T) exe(shardedJedis);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    shardedJedis.close();
+                }
+            } else if (null != jedisCluster) {
+                obj = (T) exe(jedisCluster);
+            }
+            return obj;
+        }
+
+        public abstract Object exe(JedisCommands commands);
+    }
+    /**
      * 删除key
      *
      * @param key
      */
     public void delete(String key) {
         redisTemplate.delete(key);
+    }
+
+    /**
+     * @方法名称 delete
+     * @功能描述 删除缓存项(校验value)
+     * @param key  键值
+     * @param value 缓存值
+     * @return 成功-1 失败-0
+     */
+    public Long delete(String key, String value) {
+        return new Command() {
+            @Override
+            public Long exe(JedisCommands commands) {
+                if (commands.exists(key) && commands.get(key).equals(value)) {
+                    return commands.del(key);
+                }
+                return 0L;
+            }
+        }.exeLife();
     }
 
     /**
@@ -70,6 +141,22 @@ public class RedisUtil {
      */
     public Boolean expire(String key, long timeout, TimeUnit unit) {
         return redisTemplate.expire(key, timeout, unit);
+    }
+
+    /**
+     * @方法名称 expire
+     * @功能描述 设置过期时间
+     * @param key 键值
+     * @param second 过期时间，单位秒
+     * @return 成功-1 失败-0
+     */
+    public Long expire(String key, int second) {
+        return new Command() {
+            @Override
+            public Long exe(JedisCommands commands) {
+                return commands.expire(key, second);
+            }
+        }.exeLife();
     }
 
     /**
@@ -1354,4 +1441,26 @@ public class RedisUtil {
     public Cursor<ZSetOperations.TypedTuple<String>> zScan(String key, ScanOptions options) {
         return redisTemplate.opsForZSet().scan(key, options);
     }
+
+        /**
+         * @方法名称 setNxPx
+         * @功能描述 set NX PX
+         * @param key 键值
+         * @param value 缓存值
+         * @param second 过期时间，单位秒
+         * @return 成功-"OK"，失败-"null"
+         */
+        public String setNxPx(String key, String value, int second) {
+            return new Command() {
+                @Override
+                public String exe(JedisCommands commands) {
+                    String realKey = getRealKey(key);
+                    return commands.set(realKey, value, "NX", "EX", second * 1000);
+                }
+            }.exeLife();
+        }
+
+        public static String getRealKey(String key) {
+            return key.length() > 32 ? DigestUtils.md5DigestAsHex(key.getBytes()) : key;
+        }
 }

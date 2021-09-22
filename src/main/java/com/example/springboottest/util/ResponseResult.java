@@ -18,6 +18,8 @@ public class ResponseResult {
 
     private int status = ResponseStatus.成功.getStauts();
 
+    public Integer errorCode;
+
     public ResponseResult(int code, String body) {
     }
 
@@ -53,4 +55,11 @@ public class ResponseResult {
         this.status = status;
     }
 
+    public Integer getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(Integer errorCode) {
+        this.errorCode = errorCode;
+    }
 }
