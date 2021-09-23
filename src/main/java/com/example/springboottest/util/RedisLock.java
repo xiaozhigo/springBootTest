@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RedisLock {
+
     private static Logger logger = LoggerFactory.getLogger("redis-lock");
 
     private final static String RESULT_OK = "OK";
