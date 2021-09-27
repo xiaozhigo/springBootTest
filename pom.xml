@@ -93,11 +93,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<!-- 添加oracle jdbc driver -->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.4</version>
-		</dependency>
+		</dependency>-->
         <!--单元测试-->
 		<dependency>
 			<groupId>junit</groupId>
@@ -283,16 +283,16 @@
 					<execution>
 						<id>Generate MyBatis Artifacts</id>
 						<phase>deploy</phase>
-						<goals>
+						<!--<goals>
 							<goal>generate</goal>
-						</goals>
+						</goals>-->
 					</execution>
 				</executions>
 				<dependencies>
-					<dependency>
+					<!--<dependency>
 						<groupId>mysql</groupId>
 						<artifactId>mysql-connector-java</artifactId>
-					</dependency>
+					</dependency>-->
 					<dependency>
 						<groupId>com.itfsw</groupId>
 						<artifactId>mybatis-generator-plugin</artifactId>
