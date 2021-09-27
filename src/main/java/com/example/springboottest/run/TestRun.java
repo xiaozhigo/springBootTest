@@ -21,17 +21,17 @@ import java.util.Map;
 @Slf4j
 public class TestRun implements ApplicationRunner{
 
-    @Autowired
+    /*@Autowired
     private BloomFilterConfig bloomFilterConfig;
     @Autowired
-    private TestDao testDao;
+    private TestDao testDao;*/
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        BloomFilter bloomFilter = bloomFilterConfig.getBloomFilter();
+        /*BloomFilter bloomFilter = bloomFilterConfig.getBloomFilter();
         List<Map<String, Object>> maps = testDao.queryAllUser();
         maps.forEach(map ->{
             bloomFilter.put(map.get("user_id").toString());
-        });
+        });*/
     }
 }

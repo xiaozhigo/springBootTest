@@ -39,8 +39,8 @@ public class Test4 {
     private HttpAPIService httpAPIService;
     @Autowired
     private Test4Service test4Service;
-    @Autowired
-    private RedisTemplate redisTemplate;
+    /*@Autowired
+    private RedisTemplate redisTemplate;*/
 
     @Autowired
     private BloomFilterConfig bloomFilterConfig;
@@ -70,7 +70,7 @@ public class Test4 {
 
     @RequestMapping("/setValue")
     public void setValue(@RequestBody RedisParam redisParam) {
-        redisTemplate.opsForValue().set(redisParam.getKey(), redisParam.getValue());
+        /*redisTemplate.opsForValue().set(redisParam.getKey(), redisParam.getValue());*/
     }
 
     /**
@@ -83,14 +83,14 @@ public class Test4 {
         boolean flag = bloomFilter.mightContain(userId);
         //布隆过滤器中存在
         if (flag) {
-            Object o = redisTemplate.opsForValue().get(userId);
+           /* Object o = redisTemplate.opsForValue().get(userId);
             if (StringUtils.isEmpty(o)) {
                 user = test4Service.queryUserById(userId);
                 return user;
             }else{
                 user.setUserId(Integer.parseInt(o.toString()));
                 return user;
-            }
+            }*/
         }
         return user;
     }

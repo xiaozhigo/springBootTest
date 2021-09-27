@@ -30,8 +30,8 @@ public class TestController {
     public TestService testService;
     @Autowired
     private OkHttp3Service okHttp3Service;
-    @Autowired
-    private KafkaProducer kafkaProducer;
+    /*@Autowired
+    private KafkaProducer kafkaProducer;*/
     @Autowired
     private RetryService retryService;
 
@@ -82,7 +82,7 @@ public class TestController {
     @RequestMapping("/kafkaTest")
     public String kafkaTest(@RequestParam("message") String message){
         try{
-            kafkaProducer.send(message);
+            /*kafkaProducer.send(message);*/
             return "kafka发送消息成功";
         }catch (Exception e){
             return "kafka发送消息失败,失败原因:"+e.toString();

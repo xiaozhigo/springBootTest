@@ -21,7 +21,7 @@ import org.springframework.util.concurrent.SuccessCallback;
 public class KafkaProducer {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Value("${topic}")
+  /*  @Value("${topic}")
     private String topic;
     @Autowired
     private KafkaTemplate kafkaTemplate;
@@ -42,6 +42,6 @@ public class KafkaProducer {
             }
         };
         test.addCallback(success,fail);
-    }
+    }*/
 
 }

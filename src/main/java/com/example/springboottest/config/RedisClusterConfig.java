@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Configuration
 public class RedisClusterConfig {
-    @Value("${spring.redis.cluster.nodes}")
+    /*@Value("${spring.redis.cluster.nodes}")
     private String clusterNodes;
     @Value("${spring.redis.cluster.max-redirects}")
     private int maxRedirects;
@@ -63,11 +63,11 @@ public class RedisClusterConfig {
         return jedisPoolConfig;
     }
 
-    /**
+    *//**
      * Redis集群的配置
      * @return RedisClusterConfiguration
      * @throws
-     */
+     *//*
     @Bean
     public RedisClusterConfiguration redisClusterConfiguration(){
         RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
@@ -84,12 +84,12 @@ public class RedisClusterConfig {
         return redisClusterConfiguration;
     }
 
-    /**
+    *//**
      * @param
      * @return
      * @Description:redis连接工厂类
      * @date 2018/10/25 19:45
-     */
+     *//*
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         //集群模式
@@ -100,11 +100,11 @@ public class RedisClusterConfig {
         return factory;
     }
 
-    /**
+    *//**
      * 实例化 RedisTemplate 对象
      *
      * @return
-     */
+     *//*
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
@@ -112,11 +112,11 @@ public class RedisClusterConfig {
         return redisTemplate;
     }
 
-    /**
+    *//**
      * 设置数据存入 redis 的序列化方式,并开启事务
      * 使用默认的序列化会导致key乱码
      *
-     */
+     *//*
     private void initDomainRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
         //如果不配置Serializer，那么存储的时候缺省使用String，如果用User类型存储，那么会提示错误User can't cast to String！
         redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -126,5 +126,5 @@ public class RedisClusterConfig {
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setEnableTransactionSupport(false);
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
-    }
+    }*/
 }
