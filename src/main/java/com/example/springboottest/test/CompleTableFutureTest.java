@@ -18,7 +18,8 @@ public class CompleTableFutureTest {
     static String sout(){
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            throw new RuntimeException("抛出异常");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "1";
