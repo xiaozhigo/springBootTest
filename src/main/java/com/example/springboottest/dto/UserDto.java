@@ -2,8 +2,10 @@ package com.example.springboottest.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class UserDto {
+public class UserDto implements Serializable {
 
     private String userName;
 

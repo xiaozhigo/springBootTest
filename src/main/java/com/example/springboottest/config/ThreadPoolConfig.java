@@ -1,19 +1,29 @@
 package com.example.springboottest.config;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 @EnableAsync
+@Slf4j
 public class ThreadPoolConfig {
     @Bean
     public Executor getAsyncExecutor(){
+        //线程工厂设置打印异常信息
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
+                .setUncaughtExceptionHandler((thread, throwable)-> log.error("ThreadPool {} got exception", thread,throwable))
+                .build();
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        /*<!--设置线程工厂 -->*/
+        threadPoolTaskExecutor.setThreadFactory(namedThreadFactory);
         /*<!--核心线程数 -->*/
         threadPoolTaskExecutor.setCorePoolSize(2500);
         /*<!--最大线程数 -->*/
