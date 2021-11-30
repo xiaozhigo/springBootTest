@@ -15,7 +15,8 @@ import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
-import cn.hutool.http.HttpUtil;
+import cn.hutool.http.HttpRequest;
+import com.google.gson.Gson;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -83,9 +84,13 @@ public class HutoolUtilTest {
         /*String blibli = HttpUtil.get("https://www.baidu.com");
         System.out.println(blibli);*/
         HashMap<String, Object> paramMap = new HashMap<>();
-        paramMap.put("city", "北京");
-        String post = HttpUtil.post("https://www.baidu.com", paramMap);
-        System.out.println(post);
+        paramMap.put("netNo", "wechat");
+        paramMap.put("token", "f06c44a1b2d74bf9b882f85c339dcfa01635140277996");
+        paramMap.put("fundType", "0");
+        Gson gson = new Gson();
+        String json = gson.toJson(paramMap);
+        String body = HttpRequest.post("http://10.134.0.135/api/query/queryCustFundInfoSimple").body(json).execute().body();
+        System.out.println(body);
     }
 
     @Test
