@@ -95,7 +95,7 @@ public class HutoolUtilTest {
 
     @Test
     public void QrCodeUtilTest(){
-        QrCodeUtil.generate("https://hutool.cn/", 300, 300, FileUtil.file("d:/qrcode.jpg"));
+        QrCodeUtil.generate("https://www.fundhaiyin.com/etrading/", 300, 300, FileUtil.file("d:/qrcode.jpg"));
         String decode = QrCodeUtil.decode(FileUtil.file("d:/qrcode.jpg"));
         System.out.println(decode);
     }
