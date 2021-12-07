@@ -2,6 +2,7 @@ package com.example.springboottest.test;
 
 import com.example.springboottest.dto.KeyValueModel;
 import com.example.springboottest.dto.UserDetailDto;
+import com.example.springboottest.service.SuperLoggerConfiguration;
 import com.example.springboottest.service.TestService;
 import com.example.springboottest.util.GsonSingle;
 import com.google.gson.Gson;
@@ -486,5 +487,21 @@ public class Test3 {
         for (UserDetailDto detailDto : arrayList) {
             System.out.println("detailDto:"+detailDto);
         }
+    }
+
+    @Test
+    public void testSPI(){
+        ServiceLoader<SuperLoggerConfiguration> serviceLoader = ServiceLoader.load(SuperLoggerConfiguration.class);
+        Iterator<SuperLoggerConfiguration> iterator = serviceLoader.iterator();
+        SuperLoggerConfiguration configuration = null;
+
+        while(iterator.hasNext()) {
+            //加载并初始化实现类
+            configuration = iterator.next();
+        }
+
+        //对最后一个configuration类调用configure方法
+        assert configuration != null;
+        configuration.configure();
     }
 }
