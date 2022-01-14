@@ -52,7 +52,7 @@ public class Test4 {
             log.info("~~~~~~~~~日志测试开始~~~~~~~");
             String s = httpAPIService.doGet("http://api.map.baidu.com/place/v2/search?query=ATM机&tag=银行&region=北京&output=json&ak=stlbPbu14MAXvcIMoR39D8vfQycPFGil");
             log.info("~~~~~~~~~日志测试结束~~~~~~~");
-            System.out.println(s);
+            log.info(s);
         } catch (Exception e) {
             e.printStackTrace();
         }

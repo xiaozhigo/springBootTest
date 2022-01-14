@@ -22,17 +22,13 @@ public class LogAspect {
     public void doBefore(JoinPoint joinPoint) {
         threadLocal.set(System.currentTimeMillis());
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        if (log.isDebugEnabled()) {
-            log.info("SERVICE METHOD: {} ; VAR:{}", joinPoint.getSignature().getDeclaringType().getSimpleName() + "#" + signature.getMethod().getName(), JSONObject.toJSONString(joinPoint.getArgs()));
-        }
+        log.info("SERVICE METHOD: {} ; VAR:{}", joinPoint.getSignature().getDeclaringType().getSimpleName() + "#" + signature.getMethod().getName(), JSONObject.toJSONString(joinPoint.getArgs()));
     }
 
     @After("LogAspectMethod()")
     public void doAround(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        if (log.isDebugEnabled()) {
-            log.info("SERVICE METHOD: {} ; 耗时:{}ms", joinPoint.getSignature().getDeclaringType().getSimpleName() + "#" + signature.getMethod().getName(), System.currentTimeMillis() - threadLocal.get());
-        }
+        log.info("SERVICE METHOD: {} ; 耗时:{}ms", joinPoint.getSignature().getDeclaringType().getSimpleName() + "#" + signature.getMethod().getName(), System.currentTimeMillis() - threadLocal.get());
         threadLocal.remove();
     }
 

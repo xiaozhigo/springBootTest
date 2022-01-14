@@ -1,6 +1,7 @@
 package com.example.springboottest.aop;
 
 import com.example.springboottest.annotation.TestAnnotation;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -17,6 +18,7 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
+@Slf4j
 public class AopTest {
 
     //定义切入点
@@ -35,12 +37,12 @@ public class AopTest {
         Object proceed = null;
         try {
             //调用方法
-            System.out.println("annotation中的值为:"+value);
+            log.info("annotation中的值为:"+value);
             proceed = joinPoint.proceed();
-            System.out.println("annotation中的值为:"+value);
+            log.info("annotation中的值为:"+value);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
-            System.out.println("报错了,错误信息为:"+throwable.toString());
+            log.error("报错了,错误信息为:"+throwable.toString());
         }
         return proceed;
     }
