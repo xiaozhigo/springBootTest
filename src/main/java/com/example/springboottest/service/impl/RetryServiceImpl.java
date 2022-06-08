@@ -29,6 +29,6 @@ public class RetryServiceImpl implements RetryService {
      */
     @Recover
     public void recover(Exception e) {
-        System.out.println(e.getMessage());
+        log.info(e.getMessage());
     }
 }

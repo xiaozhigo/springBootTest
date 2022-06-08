@@ -1,5 +1,6 @@
 package com.example.springboottest.test;
 
+import cn.hutool.dfa.WordTree;
 import com.example.springboottest.dto.KeyValueModel;
 import com.example.springboottest.dto.UserDetailDto;
 import com.example.springboottest.service.SuperLoggerConfiguration;
@@ -110,8 +111,8 @@ public class Test3 {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    countDownLatch.countDown();
                     System.out.println(Thread.currentThread().getName() + "开始");
+                    countDownLatch.countDown();
                 }
             };
             service.execute(runnable);
@@ -503,5 +504,34 @@ public class Test3 {
         //对最后一个configuration类调用configure方法
         assert configuration != null;
         configuration.configure();
+    }
+
+    @Test
+    public void testWordTree(){
+        WordTree tree = new WordTree();
+        tree.addWord("大");
+        tree.addWord("大憨憨");
+        tree.addWord("憨憨");
+        String text = "那人真是个大憨憨！";
+        boolean match = tree.isMatch(text);
+        System.out.println(match);
+        List<String> all = tree.matchAll(text, -1, false, false);
+        System.out.println(all);
+        List<String> strs = tree.matchAll(text, -1, false, true);
+        System.out.println(strs);
+        List<String> strs1 = tree.matchAll(text, -1, true, false);
+        System.out.println(strs1);
+        List<String> strList = tree.matchAll(text, -1, true, true);
+        System.out.println(strList);
+    }
+
+    @Test
+    public void test27(){
+        int i = 0;
+        int a = i++;
+        int b = a+1;
+        System.out.println(i);
+        System.out.println(a);
+        System.out.println(b);
     }
 }

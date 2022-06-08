@@ -39,7 +39,6 @@ public class AopTest {
             //调用方法
             log.info("annotation中的值为:"+value);
             proceed = joinPoint.proceed();
-            log.info("annotation中的值为:"+value);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             log.error("报错了,错误信息为:"+throwable.toString());
