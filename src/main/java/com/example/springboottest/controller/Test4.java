@@ -4,10 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.example.springboottest.config.BloomFilterConfig;
 import com.example.springboottest.config.ExcelListener;
-import com.example.springboottest.dto.ExcelDto;
-import com.example.springboottest.dto.RedisParam;
-import com.example.springboottest.dto.TbUserDto;
-import com.example.springboottest.dto.UserDto;
+import com.example.springboottest.dto.*;
 import com.example.springboottest.service.Test4Service;
 import com.example.springboottest.service.impl.HttpAPIService;
 import com.google.common.hash.BloomFilter;
@@ -26,7 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -137,5 +136,14 @@ public class Test4 {
         datas.forEach(e ->{
             System.out.println(e);
         });
+    }
+
+    @GetMapping("/timeTest")
+    @ResponseBody
+    public DateDto timeTest() {
+        DateDto order = new DateDto();
+        order.setLocalDateTime(LocalDateTime.now());
+        order.setDate(new Date());
+        return order;
     }
 }
