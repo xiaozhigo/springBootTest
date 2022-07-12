@@ -15,16 +15,16 @@ environment {
 
         stage('克隆代码') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '${branch}']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/xiaozhigo/springBootTest.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/xiaozhigo/springBootTest.git']]])
             }
         }
-        stage('springboot-打包') {
+        stage('${params.project}-打包') {
             steps {
                 sh 'cd /root/.jenkins/workspace/springboot-pipeline;mvn clean install -Dmaven.test.skip=true'
             }
         }
 
-        stage('springboot-scp') {
+        stage('${params.project}-scp') {
             steps {
                 sh '''
                 cd /usr/local/jenkins
