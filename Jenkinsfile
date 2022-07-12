@@ -39,7 +39,7 @@ environment {
                 mv springboottest.jar springboottest.jar.bak;
                 echo "rm springboottest.jar";
                 mv springboottest-deploy.jar springboottest.jar
-                sh /home/springboot-pipeline/restart.sh restart;
+                sh /home/springboot-pipeline/restart.sh restart
                 EOF
                 echo "deploy succ"
                 '''
