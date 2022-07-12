@@ -18,13 +18,13 @@ environment {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/xiaozhigo/springBootTest.git']]])
             }
         }
-        stage('${params.project}-打包') {
+        stage('springboot-pipeline-打包') {
             steps {
                 sh 'cd /root/.jenkins/workspace/springboot-pipeline;mvn clean install -Dmaven.test.skip=true'
             }
         }
 
-        stage('${params.project}-scp') {
+        stage('springboot-pipeline-scp') {
             steps {
                 sh '''
                 cd /usr/local/jenkins
