@@ -302,22 +302,27 @@
 			<artifactId>canal-client</artifactId>
 			<version>1.2.1-RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>springboot-admin</artifactId>
+			<version>0.0.3-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<distributionManagement>
 		<repository>
-			<id>releases</id>
+			<id>maven-releases</id>
 			<url>http://192.168.176.128:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>snapshots</id>
+			<id>maven-snapshots</id>
 			<url>http://192.168.176.128:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
 	<repositories>
 		<repository>
-			<id>nexus</id>
+			<id>maven-public</id>
 			<url>http://192.168.176.128:8081/repository/maven-public/</url>
 			<releases>
 				<enabled>true</enabled>
@@ -329,7 +334,7 @@
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>nexus</id>
+			<id>maven-public</id>
 			<url>http://192.168.176.128:8081/repository/maven-public/</url>
 			<releases>
 				<enabled>true</enabled>
@@ -341,6 +346,7 @@
 	</pluginRepositories>
 
 	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
