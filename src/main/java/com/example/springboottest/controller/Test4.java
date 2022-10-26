@@ -146,4 +146,12 @@ public class Test4 {
         order.setDate(new Date());
         return order;
     }
+
+
+    @GetMapping("/testMethod")
+    @ResponseBody
+    public DateDto testMethod(@RequestParam(value = "id") String id){
+        DateDto dto = test4Service.testMethod(id);
+        return dto;
+    }
 }

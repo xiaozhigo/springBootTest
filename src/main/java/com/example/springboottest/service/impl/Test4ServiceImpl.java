@@ -1,6 +1,7 @@
 package com.example.springboottest.service.impl;
 
 import com.example.springboottest.dao.TbUserDao;
+import com.example.springboottest.dto.DateDto;
 import com.example.springboottest.dto.TbUserDto;
 import com.example.springboottest.dto.UserDto;
 import com.example.springboottest.mysql.TestDao;
@@ -11,8 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 @Service
 public class Test4ServiceImpl implements Test4Service {
@@ -23,6 +29,15 @@ public class Test4ServiceImpl implements Test4Service {
     private Test1Service test1Service;
     @Autowired(required=false)
     private TbUserDao tbUserDao;
+
+    private static final Map<String, Function<String, DateDto>> METHOD_MAP = new HashMap<>();
+
+    @PostConstruct
+    public void initMap(){
+        METHOD_MAP.put("1", this::timeTest1);
+        METHOD_MAP.put("2", this::timeTest2);
+    }
+
 
     @Transactional(transactionManager = "xaTransaction",propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void transactionTest(UserDto userDto) {
@@ -54,4 +69,27 @@ public class Test4ServiceImpl implements Test4Service {
         //int i = 10/0;
         //System.out.println(i);
     }
+
+
+    @Override
+    public DateDto testMethod(String id) {
+        Function<String, DateDto> dateDtoFunction = METHOD_MAP.get(id);
+        return dateDtoFunction.apply(id);
+    }
+
+
+    private DateDto timeTest1(String s) {
+        DateDto order = new DateDto();
+        order.setLocalDateTime(LocalDateTime.now());
+        order.setDate(new Date());
+        return order;
+    }
+
+    private DateDto timeTest2(String s) {
+        DateDto order = new DateDto();
+        order.setLocalDateTime(LocalDateTime.now().plusDays(1));
+        order.setDate(new Date());
+        return order;
+    }
+
 }

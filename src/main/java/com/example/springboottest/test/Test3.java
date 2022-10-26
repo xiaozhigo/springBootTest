@@ -1,7 +1,10 @@
 package com.example.springboottest.test;
 
 import cn.hutool.dfa.WordTree;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.dto.KeyValueModel;
+import com.example.springboottest.dto.Plain;
 import com.example.springboottest.dto.UserDetailDto;
 import com.example.springboottest.service.SuperLoggerConfiguration;
 import com.example.springboottest.service.TestService;
@@ -23,6 +26,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.SecureRandomSpi;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -533,5 +537,36 @@ public class Test3 {
         System.out.println(i);
         System.out.println(a);
         System.out.println(b);
+    }
+
+
+    @Test
+    public void test29(){
+        // 随机数类实例化
+        Random random = new Random();
+        StringBuilder str = new StringBuilder();
+        // 64位数字数组
+        int[] number = new int[64];
+        // 循环变量
+        int i = 0;
+        // 生成64位随机数算法
+        for (i = 0; i < 64; i++) {
+            if (number[i] == 0) {
+        // 产生0-10之间的随机小数，强制转换成正数
+                number[i] = (int) (Math.random() * 10);
+            }
+         // 输出数字
+            System.out.print(number[i] + "");
+            str.append(number[i] + "");
+        }
+
+        System.out.println("/n"+str.toString().length());
+    }
+
+    @Test
+    public void test30(){
+        String str = "{\"userName\":\"张三\",\"imei\":\"20\",\"sex\":\"男\"}";
+        Plain plain = JSON.parseObject(str, Plain.class);
+        System.out.println(plain);
     }
 }
