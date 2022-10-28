@@ -6,7 +6,7 @@ package com.example.springboottest.util;
  * @Date: 2018/10/242:22 PM
  * @Descripton:
  */
-public class ResponseResult {
+public class ResponseResult<T> {
     public ResponseResult() {
     }
 
@@ -22,6 +22,7 @@ public class ResponseResult {
 
     public ResponseResult(int code, String body) {
     }
+
 
     public int getCode() {
         return code;
@@ -61,5 +62,19 @@ public class ResponseResult {
 
     public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
+    }
+
+    public static <T> ResponseResult<T> error() {
+        ResponseResult<T> response = new ResponseResult<>();
+        response.setMsg(ResponseStatus.失败.getMsg());
+        response.setCode(ResponseStatus.失败.getStauts());
+        return response;
+    }
+
+    public static <T> ResponseResult<T> success() {
+        ResponseResult<T> response = new ResponseResult<>();
+        response.setMsg(ResponseStatus.成功.getMsg());
+        response.setCode(ResponseStatus.成功.getStauts());
+        return response;
     }
 }

@@ -206,7 +206,7 @@
         </encoder>
     </appender>
     <!--默认日志级别,大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL和OFF-->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="consoleFile"/>
         <!--<appender-ref ref="zipFile"/>-->
@@ -219,18 +219,18 @@
         <appender-ref ref="grpc-log"/>
     </root>
     <!--特定日志级别,其中xxx为项目名称-->
-    <logger name="com.example.springboottest" level="info" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="consoleFile"/>
-        <!--<appender-ref ref="zipFile"/>-->
-        <appender-ref ref="debugAppender"/>
+    <!--<logger name="com.example.springboottest" level="DEBUG" additivity="false">
+        &lt;!&ndash;<appender-ref ref="CONSOLE"/>
+        <appender-ref ref="consoleFile"/>&ndash;&gt;
+        &lt;!&ndash;<appender-ref ref="zipFile"/>&ndash;&gt;
+        &lt;!&ndash;<appender-ref ref="debugAppender"/>
         <appender-ref ref="infoAppender"/>
         <appender-ref ref="warningAppender"/>
-        <appender-ref ref="errorAppender"/>
-        <appender-ref ref="logstash"/>
+        <appender-ref ref="errorAppender"/>&ndash;&gt;
+        &lt;!&ndash;<appender-ref ref="logstash"/>
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="grpc-log"/>
-    </logger>
+        <appender-ref ref="grpc-log"/>&ndash;&gt;
+    </logger>-->
 
     <!--业务操作日志-->
     <!--<logger name="POSITION_LOG" level="info" additivity="false">
