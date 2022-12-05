@@ -1,5 +1,6 @@
 package com.example.springboottest.controller;
 
+import ch.qos.logback.core.pattern.util.IEscapeUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.example.springboottest.config.BloomFilterConfig;
@@ -9,6 +10,7 @@ import com.example.springboottest.service.Test4Service;
 import com.example.springboottest.service.impl.HttpAPIService;
 import com.google.common.hash.BloomFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -153,5 +155,24 @@ public class Test4 {
     public DateDto testMethod(@RequestParam(value = "id") String id){
         DateDto dto = test4Service.testMethod(id);
         return dto;
+    }
+
+    @PostMapping("/EscapeString")
+    @ResponseBody
+    public String EscapeString(@RequestBody String str){
+        String st = this.escape(str);
+        return st;
+    }
+
+    private String escape(String keyword) {
+        if (!StringUtils.isEmpty(keyword)) {
+            String[] fbsArr = { "\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|" };
+            for (String key : fbsArr) {
+                if (keyword.contains(key)) {
+                    keyword = keyword.replace(key, "\\" + key);
+                }
+            }
+        }
+        return keyword;
     }
 }

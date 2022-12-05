@@ -43,6 +43,7 @@ public class AesEncryptTool {
 		return strResult;
 	}
 
+
 	/**
 	 * 对密文解密
 	 *
@@ -58,6 +59,56 @@ public class AesEncryptTool {
 
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+
+			byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
+
+			return new String(original, "UTF-8");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 * 对原文加密
+	 *
+	 * @param key
+	 * @param strSource
+	 * @return
+	 */
+	private static String encrypt(String key, String strSource) {
+		String strResult = null;
+		try {
+			// 使用CBC模式，密码分组链接
+			SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+			cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+
+			byte[] encrypted = cipher.doFinal(strSource.getBytes("UTF-8"));
+			strResult = Base64.encodeBase64String(encrypted);
+		} catch (Exception e) {
+			e.printStackTrace();
+			strResult = null;
+		}
+
+		return strResult;
+	}
+
+	/**
+	 * 对密文解密
+	 *
+	 * @param key
+	 * @param encrypted
+	 * @return
+	 */
+	private static String decrypt(String key, String encrypted) {
+		try {
+			SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+			cipher.init(Cipher.DECRYPT_MODE, skeySpec);
 
 			byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
 
@@ -211,13 +262,20 @@ public class AesEncryptTool {
 	}
 
 	public static void main(String[] args) {
-		String str = "";
+		String str = "17521271445";
 
 		System.out.println(str);
 
 		// String encStr = encrypt(str);
 		// System.out.println(encStr);
 		System.out.println(decrypt(""));
-		System.out.println(encrypt(str));
+		String encrypt = encrypt(str);
+		System.out.println(encrypt);
+		System.out.println(decrypt(encrypt));
+		String encrypt1 = encrypt(key, str);
+		System.out.println(encrypt1);
+		System.out.println(decrypt(key,encrypt1));
+
+
 	}
 }

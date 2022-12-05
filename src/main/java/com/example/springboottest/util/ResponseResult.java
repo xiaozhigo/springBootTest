@@ -71,10 +71,19 @@ public class ResponseResult<T> {
         return response;
     }
 
+    public static <T> ResponseResult<T> errorMessage(String message) {
+        ResponseResult<T> response = new ResponseResult<>();
+        response.setMsg(message);
+        response.setCode(ResponseStatus.失败.getStauts());
+        return response;
+    }
+
     public static <T> ResponseResult<T> success() {
         ResponseResult<T> response = new ResponseResult<>();
         response.setMsg(ResponseStatus.成功.getMsg());
         response.setCode(ResponseStatus.成功.getStauts());
         return response;
     }
+
+
 }

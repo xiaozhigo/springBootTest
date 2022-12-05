@@ -302,11 +302,6 @@
 			<artifactId>canal-client</artifactId>
 			<version>1.2.1-RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>springboot-admin</artifactId>
-			<version>0.0.3-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<distributionManagement>
@@ -435,13 +430,13 @@
 					<include>**/*</include>
 				</includes>
 			</resource>
-			<resource>
+			<!--<resource>
 				<directory>lib</directory>
 				<targetPath>BOOT-INF/lib/</targetPath>
 				<includes>
 					<include>**/*.jar</include>
 				</includes>
-			</resource>
+			</resource>-->
 		</resources>
 	</build>
 
