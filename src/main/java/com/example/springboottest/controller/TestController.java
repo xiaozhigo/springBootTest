@@ -26,7 +26,6 @@ import java.util.Map;
 @RestController
 public class TestController {
 
-
     @Autowired
     public TestService testService;
     @Autowired
