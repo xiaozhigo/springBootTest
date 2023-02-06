@@ -1,6 +1,6 @@
 package com.example.springboottest.test;
 
-import com.example.springboottest.adapter.*;
+import com.example.springboottest.design.adaptee.*;
 
 public class AdapterTest {
 

@@ -1,4 +1,4 @@
-package com.example.springboottest.adapter;
+package com.example.springboottest.design.adaptee;
 /**
  * 适配器角色
  */

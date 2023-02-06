@@ -1,4 +1,4 @@
-package com.example.springboottest.adapter;
+package com.example.springboottest.design.adaptee;
 /**
  * 源角色：要把源角色转换成目标角色
  */
