@@ -110,7 +110,7 @@ canal:
   destination: example
   server: 192.168.176.128:11111 #canal地址
 es:
-  host: 192.168.176.128
+  hosts: 192.168.176.128,192.168.176.130,192.168.176.131
   port: 9200
   scheme: http
 

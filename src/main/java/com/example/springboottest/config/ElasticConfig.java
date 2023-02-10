@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ElasticConfig {
-    @Value("${es.host}")
-    public String host;
+    @Value("${es.hosts}")
+    public String hosts;
     @Value("${es.port}")
     public int port;
     @Value("${es.scheme}")
@@ -20,17 +20,14 @@ public class ElasticConfig {
 
     @Bean
     public RestClientBuilder restClientBuilder() {
-        return RestClient.builder(makeHttpHost());
+        String[] hostArray = hosts.split(",");
+        HttpHost[] httpHosts = new HttpHost[hostArray.length];
+        for (int i = 0; i < hostArray.length; i++) {
+            httpHosts[i] = new HttpHost(hostArray[i], port, scheme);
+        }
+        return RestClient.builder(httpHosts);
     }
 
-    @Bean
-    public RestClient elasticsearchRestClient(){
-        return RestClient.builder(new HttpHost(host, port, scheme)).build();
-    }
-
-    private HttpHost makeHttpHost() {
-        return new HttpHost(host, port, scheme);
-    }
 
     @Bean
     public RestHighLevelClient restHighLevelClient(@Autowired RestClientBuilder restClientBuilder){
