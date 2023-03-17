@@ -1,5 +1,7 @@
 package com.example.springboottest.test;
 
+import org.junit.Test;
+
 import java.util.concurrent.CompletableFuture;
 
 public class CompleTableFutureTest {
@@ -24,4 +26,30 @@ public class CompleTableFutureTest {
         }
         return "1";
     }
+
+   @Test
+   public void test(){
+       CompletableFuture<Void> task1 =
+               CompletableFuture.supplyAsync(()->{
+                   //自定义业务操作
+                   System.out.println("task1");
+                   return null;
+               });
+
+       CompletableFuture<Void> task6 =
+               CompletableFuture.supplyAsync(()->{
+                   //自定义业务操作
+                   System.out.println("task6");
+                   return null;
+               });
+
+       CompletableFuture<Void> headerFuture = CompletableFuture.allOf(task1,task6);
+
+       try {
+           headerFuture.join();
+       } catch (Exception ex) {
+           //......
+       }
+       System.out.println("all done. ");
+   }
 }
