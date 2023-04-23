@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboottest.mysql.CustCustInfoMapper">
+	<resultMap id="BaseResultMap" type="com.example.springboottest.dto.CustCustInfo">
+		<!--自动生成[2017-06-21 14:15:43] -->
+		<id column="DISTRIBUTORCODE" jdbcType="VARCHAR" property="distributorCode" />
+		<id column="CUSTID" jdbcType="VARCHAR" property="custId" />
+		<result column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="CERTIFICATETYPE" jdbcType="CHAR" property="certificateType" />
+		<result column="CERTIFICATENO" jdbcType="VARCHAR" property="certificateNo" />
+		<result column="CERTIFICATENO15" jdbcType="VARCHAR" property="certificateNo15" />
+		<result column="INVESTORNAME" jdbcType="VARCHAR" property="investorName" />
+		<result column="INDIVIDUALORINSTITUTION" jdbcType="CHAR"
+				property="individualOrInstitution" />
+		<result column="BRANCHCODE" jdbcType="VARCHAR" property="branchCode" />
+		<result column="MOBILETELNO" jdbcType="VARCHAR" property="mobileTelNo" />
+		<result column="EMAILADDRESS" jdbcType="VARCHAR" property="emailAddress" />
+		<result column="CUSTSTATUS" jdbcType="CHAR" property="custStatus" />
+		<result column="CUSTFLAGLIST" jdbcType="VARCHAR" property="custFlagList" />
+		<result column="INVESTMENTADVISERCODE" jdbcType="VARCHAR"
+				property="investmentAdviserCode" />
+		<result column="CERTVALIDDATE" jdbcType="VARCHAR" property="certValidDate" />
+		<result column="CUSTRISKLEVEL" jdbcType="VARCHAR" property="custRiskLevel" />
+		<result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+		<result column="REGISTDATE" jdbcType="VARCHAR" property="registDate" />
+		<result column="MODIFYDATE" jdbcType="VARCHAR" property="modifyDate" />
+		<result column="OBLIGATEINFO" jdbcType="VARCHAR" property="obligateInfo" />
+		<result column="CUSTLEVEL" jdbcType="CHAR" property="custLevel" />
+		<result column="ISSIGNFLAG" jdbcType="CHAR" property="isSignFlag" />
+		<result column="MACADDRESS" jdbcType="VARCHAR" property="macAddress" />
+		<result column="TESTMATURITY" jdbcType="VARCHAR" property="testMaturity" />
+		<result column="ISQUALITYCUST" jdbcType="VARCHAR" property="isQualityCust" />
+		<result column="NETNO" jdbcType="VARCHAR" property="netNo" />
+		<result column="ACTIVITYNO" jdbcType="VARCHAR" property="activityNo" />
+		<result column="REMEMBERMYCHOICEFLAG" jdbcType="CHAR"
+				property="rememberMyChoiceFlag" />
+		<result column="ISPROFESSIONAL" jdbcType="CHAR" property="isProfessional" />
+		<result column="ASSETCERTIFYSTATUS" jdbcType="VARCHAR"
+				property="assetCertifyStatus" />
+		<result column="ASSETCERTIFYMATURITY" jdbcType="VARCHAR"
+				property="assetCertifyMaturity" />
+		<result column="INVESTEXPERSTATUS" jdbcType="VARCHAR" property="investExperStatus" />
+		<result column="INVESTEXPERMATURITY" jdbcType="VARCHAR"
+				property="investExperMaturity" />
+		<result column="ACTUALCONTROLLER" jdbcType="VARCHAR" property="actualController" />
+		<result column="ACTUALBENEFICIARY" jdbcType="VARCHAR" property="actualBeneficiary" />
+		<result column="ACCOUNTAGENT" jdbcType="VARCHAR" property="accountAgent" />
+		<result column="CREDITRECORD" jdbcType="CHAR" property="creditRecord" />
+		<result column="TAXPROPERTY" jdbcType="CHAR" property="taxProperty" />
+		<result column="SHSTOCKCARD" jdbcType="VARCHAR" property="shStockCard" />
+		<result column="SZSTOCKCARD" jdbcType="VARCHAR" property="szStockCard" />
+		<result column="CREDITRECORDIN" jdbcType="VARCHAR" property="creditRecordIn" />
+		<result column="ADDR" jdbcType="VARCHAR" property="addr" />
+		<result column="RECOMMEND_CUSTID" jdbcType="VARCHAR" property="recommendCustId" />
+		<result column="PROFESSIONALTYPE" jdbcType="VARCHAR" property="professionalType" />
+		<result column="PROFESSIONALMATURITY" jdbcType="VARCHAR" property="professionalMaturity" />
+		<result column="LINKMANCERTIFICATETYPE" jdbcType="CHAR" property="linkmanCertificateType" />
+		<result column="LINKMANCERTIFICATENO" jdbcType="VARCHAR" property="linkmanCertificateNo" />
+		<result column="LINKMANNAME" jdbcType="VARCHAR" property="linkmanName" />
+
+		<result column="LINKMANCERTVALIDDATE" jdbcType="VARCHAR" property="linkmanCertValidDate"/>
+		<result column="LINKMANTEL" jdbcType="VARCHAR" property="linkmanTel"/>
+		<result column="LINKMANADDR" jdbcType="VARCHAR" property="linkmanAddr"/>
+		<result column="LINKMANWARRANTENDDATE" jdbcType="VARCHAR" property="linkManWarrantEndDate"/>
+		<result column="LINKMANMOBILE" jdbcType="VARCHAR" property="linkManMobile"/>
+		<result column="PROFESSIONSUBTYPE" jdbcType="VARCHAR" property="professionSubType"/>
+		<result column="ENTERSENIORITYFLAG" jdbcType="VARCHAR" property="enterSeniorityFlag" />
+		<result column="QUALITYCUSTCHOICEFLAG" jdbcType="VARCHAR" property="qualityCustChoiceFlag" />
+		<result column="PRIVACYPOLICYFLAG" jdbcType="VARCHAR" property="privacyPolicyFlag" />
+		<result column="PLANRISKTESTEXPIRESSMSDATE" jdbcType="VARCHAR" property="planRiskTestExpiresSmsDate" />
+		<result column="BACKUPID" jdbcType="VARCHAR" property="backUpId" />
+		<result column="CERTIFICATIONSTATUS" jdbcType="VARCHAR" property="certificationStatus" />
+		<result column="CERTIFICATIONTIME" jdbcType="VARCHAR" property="certificationTime" />
+	</resultMap>
+
+	<sql id="Condition_Where_Clause">
+		<!--自动生成[2017-06-21 14:15:43] -->
+		<where>
+			<if test="condition.distributorCode != null">
+				and DISTRIBUTORCODE =
+				#{condition.distributorCode,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.custId != null">
+				and CUSTID = #{condition.custId,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.id != null">
+				and ID = #{condition.id,jdbcType=DECIMAL}
+			</if>
+			<if test="condition.certificateType != null">
+				and CERTIFICATETYPE =
+				#{condition.certificateType,jdbcType=CHAR}
+			</if>
+			<if test="condition.certificateNo != null">
+				and CERTIFICATENO =
+				#{condition.certificateNo,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.certificateNo15 != null">
+				and CERTIFICATENO15 =
+				#{condition.certificateNo15,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.investorName != null">
+				and ( INVESTORNAME =
+				#{condition.investorName,jdbcType=VARCHAR} or
+				INVESTORNAME like
+				CONCAT(CONCAT('%',#{condition.investorName,jdbcType=VARCHAR}),'%') )
+			</if>
+			<if test="condition.individualOrInstitution != null">
+				and INDIVIDUALORINSTITUTION =
+				#{condition.individualOrInstitution,jdbcType=CHAR}
+			</if>
+			<if test="condition.branchCode != null">
+				and BRANCHCODE = #{condition.branchCode,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.mobileTelNo != null">
+				and MOBILETELNO =
+				#{condition.mobileTelNo,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.emailAddress != null">
+				and EMAILADDRESS =
+				#{condition.emailAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.custStatus != null">
+				and CUSTSTATUS = #{condition.custStatus,jdbcType=CHAR}
+			</if>
+			<if test="condition.custFlagList != null">
+				and CUSTFLAGLIST =
+				#{condition.custFlagList,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.investmentAdviserCode != null">
+				and INVESTMENTADVISERCODE =
+				#{condition.investmentAdviserCode,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.certValidDate != null">
+				and CERTVALIDDATE =
+				#{condition.certValidDate,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.custRiskLevel != null">
+				and CUSTRISKLEVEL =
+				#{condition.custRiskLevel,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.userName != null">
+				and USERNAME = #{condition.userName,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.registDate != null">
+				and REGISTDATE = #{condition.registDate,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.modifyDate != null">
+				and MODIFYDATE = #{condition.modifyDate,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.obligateInfo != null">
+				and OBLIGATEINFO =
+				#{condition.obligateInfo,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.custLevel != null">
+				and CUSTLEVEL = #{condition.custLevel,jdbcType=CHAR}
+			</if>
+			<if test="condition.isSignFlag != null">
+				and ISSIGNFLAG = #{condition.isSignFlag,jdbcType=CHAR}
+			</if>
+			<if test="condition.macAddress != null">
+				and MACADDRESS = #{condition.macAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.testMaturity != null">
+				and TESTMATURITY =
+				#{condition.testMaturity,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.isQualityCust != null">
+				and ISQUALITYCUST =
+				#{condition.isQualityCust,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.netNo != null">
+				and NETNO = #{condition.netNo,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.activityNo != null">
+				and ACTIVITYNO = #{condition.activityNo,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.rememberMyChoiceFlag != null">
+				and REMEMBERMYCHOICEFLAG =
+				#{condition.rememberMyChoiceFlag,jdbcType=CHAR}
+			</if>
+			<if test="condition.isProfessional != null">
+				and ISPROFESSIONAL =
+				#{condition.isProfessional,jdbcType=CHAR}
+			</if>
+			<if test="condition.assetCertifyStatus != null">
+				and ASSETCERTIFYSTATUS =
+				#{condition.assetCertifyStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.assetCertifyMaturity != null">
+				and ASSETCERTIFYMATURITY =
+				#{condition.assetCertifyMaturity,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.investExperStatus != null">
+				and INVESTEXPERSTATUS =
+				#{condition.investExperStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.investExperMaturity != null">
+				and INVESTEXPERMATURITY =
+				#{condition.investExperMaturity,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.actualController != null">
+				and ACTUALCONTROLLER =
+				#{condition.actualController,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.actualBeneficiary != null">
+				and ACTUALBENEFICIARY =
+				#{condition.actualBeneficiary,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.accountAgent != null">
+				and ACCOUNTAGENT =
+				#{condition.accountAgent,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.creditRecord != null">
+				and CREDITRECORD =
+				#{condition.creditRecord,jdbcType=CHAR}
+			</if>
+			<if test="condition.taxProperty != null">
+				and TAXPROPERTY = #{condition.taxProperty,jdbcType=CHAR}
+			</if>
+			<if test="condition.shStockCard != null">
+				and SHSTOCKCARD =
+				#{condition.shStockCard,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.szStockCard != null">
+				and SZSTOCKCARD =
+				#{condition.szStockCard,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.creditRecordIn != null">
+				and CREDITRECORDIN =
+				#{condition.creditRecordIn,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.addr != null">
+				and ADDR = #{condition.addr,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.recommendCustId != null">
+				and RECOMMEND_CUSTID =
+				#{condition.recommendCustId,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.professionalType != null">
+				and PROFESSIONALTYPE =
+				#{condition.professionalType,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.professionalMaturity != null">
+				and PROFESSIONALMATURITY =
+				#{condition.professionalMaturity,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.linkmanCertificateType != null">
+				and LINKMANCERTIFICATETYPE = #{condition.linkmanCertificateType,jdbcType=CHAR}
+			</if>
+			<if test="condition.linkmanCertificateNo != null">
+				and LINKMANCERTIFICATENO = #{condition.linkmanCertificateNo,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.linkmanName != null">
+				and LINKMANNAME = #{condition.linkmanName,jdbcType=VARCHAR}
+			</if>
+
+			<if test="condition.linkmanCertValidDate != null">
+				and LINKMANCERTVALIDDATE = #{condition.linkmanCertValidDate}
+			</if>
+			<if test="condition.linkmanTel != null">
+				and LINKMANTEL = #{condition.linkmanTel}
+			</if>
+			<if test="condition.linkmanAddr != null">
+				and LINKMANADDR = #{condition.linkmanAddr}
+			</if>
+			<if test="condition.linkManWarrantEndDate != null">
+				and LINKMANWARRANTENDDATE = #{condition.linkManWarrantEndDate}
+			</if>
+			<if test="condition.linkManMobile != null">
+				and LINKMANMOBILE = #{condition.linkManMobile}
+			</if>
+			<if test="condition.professionSubType != null">
+				and PROFESSIONSUBTYPE = #{condition.professionSubType}
+			</if>
+			<if test="condition.enterSeniorityFlag != null">
+				and ENTERSENIORITYFLAG = #{condition.enterSeniorityFlag}
+			</if>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		<!--自动生成[2017-06-21 14:15:43] -->
+		DISTRIBUTORCODE, CUSTID, ID, CERTIFICATETYPE, CERTIFICATENO,
+		CERTIFICATENO15, INVESTORNAME,
+		INDIVIDUALORINSTITUTION, BRANCHCODE,
+		MOBILETELNO, EMAILADDRESS, CUSTSTATUS, CUSTFLAGLIST,
+		INVESTMENTADVISERCODE, CERTVALIDDATE, CUSTRISKLEVEL, USERNAME,
+		REGISTDATE, MODIFYDATE,
+		OBLIGATEINFO, CUSTLEVEL,
+		MACADDRESS, TESTMATURITY, ISQUALITYCUST,
+		NETNO,
+		ACTIVITYNO,
+		REMEMBERMYCHOICEFLAG, ISPROFESSIONAL, ASSETCERTIFYSTATUS,
+		ASSETCERTIFYMATURITY,
+		INVESTEXPERSTATUS, INVESTEXPERMATURITY,
+		ACTUALCONTROLLER, ACTUALBENEFICIARY,ACCOUNTAGENT,
+		CREDITRECORD,
+		TAXPROPERTY,
+		SHSTOCKCARD, SZSTOCKCARD, CREDITRECORDIN, ADDR,
+		PROFESSIONALTYPE,PROFESSIONALMATURITY,LINKMANCERTIFICATETYPE, LINKMANCERTIFICATENO, LINKMANNAME,
+		LINKMANCERTVALIDDATE,LINKMANTEL,LINKMANADDR,LINKMANWARRANTENDDATE,LINKMANMOBILE,PROFESSIONSUBTYPE,
+		ENTERSENIORITYFLAG,QUALITYCUSTCHOICEFLAG,CERTIMGFLAG,PRIVACYPOLICYFLAG,BACKUPID,CERTIFICATIONSTATUS,CERTIFICATIONTIME,externalSource
+	</sql>
+
+	<select id="selectByCondition" parameterType="com.example.springboottest.dto.CustCustInfo"
+			resultMap="BaseResultMap">
+		<!--自动生成[2017-06-21 14:15:43] -->
+		select
+		<include refid="Base_Column_List" />
+		from CUST_CUSTINFO
+		<if test="_parameter != null">
+			<include refid="Condition_Where_Clause" />
+		</if>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+		<!--自动生成[2017-06-21 14:15:43] -->
+		select
+		<include refid="Base_Column_List" />
+		from CUST_CUSTINFO
+		where DISTRIBUTORCODE =
+		#{distributorCode,jdbcType=VARCHAR}
+		and CUSTID =
+		#{custId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryMobileTelNoByCondition" parameterType="com.example.springboottest.dto.CustCustInfo" resultMap="BaseResultMap">
+		select
+		CUSTID,MOBILETELNO
+		from CUST_CUSTINFO
+		<if test="_parameter != null">
+			<include refid="Condition_Where_Clause" />
+		</if>
+	</select>
+</mapper>

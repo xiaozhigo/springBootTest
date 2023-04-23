@@ -6,6 +6,7 @@ import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.example.springboottest.config.BloomFilterConfig;
 import com.example.springboottest.config.ExcelListener;
 import com.example.springboottest.dto.*;
+import com.example.springboottest.service.CustCustInfoService;
 import com.example.springboottest.service.Test4Service;
 import com.example.springboottest.service.impl.HttpAPIService;
 import com.google.common.hash.BloomFilter;
@@ -45,6 +46,9 @@ public class Test4 {
 
     @Autowired
     private BloomFilterConfig bloomFilterConfig;
+
+    @Autowired
+    private CustCustInfoService custCustInfoService;
 
     @RequestMapping("/test1")
     public void test1() {
@@ -174,5 +178,12 @@ public class Test4 {
             }
         }
         return keyword;
+    }
+
+
+    @GetMapping("/queryCustCustInfo")
+    @ResponseBody
+    public List<CustCustInfo> queryCustCustInfo(){
+        return custCustInfoService.queryCustInfo();
     }
 }

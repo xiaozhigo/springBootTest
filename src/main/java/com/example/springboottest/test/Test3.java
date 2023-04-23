@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.springboottest.dto.KeyValueModel;
 import com.example.springboottest.dto.Plain;
+import com.example.springboottest.dto.PrivProdInfoListDTO;
 import com.example.springboottest.dto.UserDetailDto;
 import com.example.springboottest.service.SuperLoggerConfiguration;
 import com.example.springboottest.service.TestService;
@@ -568,5 +569,15 @@ public class Test3 {
         String str = "{\"userName\":\"张三\",\"imei\":\"20\",\"sex\":\"男\"}";
         Plain plain = JSON.parseObject(str, Plain.class);
         System.out.println(plain);
+    }
+
+    @Test
+    public void test31(){
+        List<PrivProdInfoListDTO> list = new ArrayList<>();
+        PrivProdInfoListDTO privProdInfoListDTO = new PrivProdInfoListDTO();
+        privProdInfoListDTO.setFundCode("SNJ048");
+        list.add(privProdInfoListDTO);
+        List<String> codeList = list.stream().map(PrivProdInfoListDTO::getFundCode).distinct().collect(Collectors.toList());
+        System.out.println(codeList);
     }
 }
